@@ -33,8 +33,6 @@ When moving through these steps and invoking those skills, act with agency: make
 ## What is Warpy
 Warpy helps B2B SaaS teams with complex dashboards, low feature adoption, and repetitive support tickets make their product AI-native.
 
-Public landing slogan: "Let users control your app through chat and dynamic UI."
-
 Customers embed a lightweight in-product assistant into their dashboard. Users ask for work in chat, Warpy can answer with dynamic UI in the widget chat using Warpy components or customer native components, and configured tools or screen autopilot can operate the existing dashboard on the user's behalf.
 
 For GTM and recipient-visible copy, do not make "dynamic UI" carry the whole action story. Dynamic UI means structured chat output; dashboard control comes from configured tools and screen autopilot. GTM messaging must lead with the adoption or support problem, tie it to a concrete workflow, then explain Warpy in plain recipient language.
@@ -42,14 +40,10 @@ For GTM and recipient-visible copy, do not make "dynamic UI" carry the whole act
 ## Monorepo Structure
 This repo contains these projects:
 
-| Directory | Repo | Purpose |
-|-----------|------|---------|
-| `frontend/` + `backend/` | (this repo) | Core platform — dashboard, API, agent engine, and all backend services. |
-| `docs-site/` | `docs` (submodule) | Public Mintlify documentation site for customers and implementers. |
-| `widget/` | (this repo) | The `@warpy-ai/widget` package customers install to embed Warpy in their dashboards. |
-
-`docs-site/` is a submodule with its own git history. Commit inside the submodule first, then update the reference in the parent repo. `widget/` is a normal tracked package directory in this repo, not a submodule.
-`docs-site/` is public customer-facing documentation. Do not put internal-only implementation details, engineering notes, or private operational guidance there.
+| Directory | Purpose |
+|-----------|---------|
+| `frontend/` + `backend/` | Core platform — dashboard, API, agent engine, and all backend services. |
+| `widget/` | The `@warpy-ai/widget` package customers install to embed Warpy in their dashboards. |
 
 ## Modes
 - **Ask mode:** answers are short, clear, and strictly concise.
@@ -69,8 +63,7 @@ LLM agent skills are stored in `.codex/skills/` (the canonical location). The ac
 - Operate with **extreme selectiveness, high taste, and high standards**. Every addition must be clearly justified and materially improve correctness, reliability, performance, or maintainability.
 - Whenever your changes make any code or test dead or unused, remove that code or test so the codebase only contains what is relevant and necessary.
 - Follow existing patterns only. Always match naming, structure, and usage found elsewhere in the codebase.
-- When you change a feature or surface, update the equivalent doc file in `docs/` (internal documentation) when one exists. If the change affects public-facing product behavior or setup, also update the corresponding public documentation in `docs-site/`. Keep `AGENTS.md` and the project `README.md` up to date, but remember that the README is for humans: it should include only extremely relevant project-level information such as what Warpy is, how to run the dev environment, and the main core ideas. Do not put implementation details, automation internals, operational runbooks, or edge-case behavior in the README; put those in `docs/`.
-- Keep the public docs in `docs-site/` automatically up to date whenever product behavior, setup, UI copy, tooling, security, or user-facing flows change. Only customer-facing information should be in `docs-site/`; put all internal implementation details in `docs/`, not in public docs.
+- When you change a feature or surface, update the equivalent doc file in `docs/` (internal documentation) when one exists. Keep `AGENTS.md` and the project `README.md` up to date, but remember that the README is for humans: it should include only extremely relevant project-level information such as what Warpy is, how to run the dev environment, and the main core ideas. Do not put implementation details, automation internals, operational runbooks, or edge-case behavior in the README; put those in `docs/`.
 - Whenever browser access is needed for validation, debugging, reproduction, or automation, load `docs/chrome-cdp.md` first and prefer that live Chrome session workflow over separate browser instances.
 - **When the instruction says "ship it", that means:**  
   run all tests, then commit and push the changes (excluding any changes to `frontend/index.html`).  

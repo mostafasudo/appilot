@@ -32,10 +32,6 @@ Live Chrome-session validation and automation use [docs/chrome-cdp.md](docs/chro
 
 Agent-specific instructions live in [AGENTS.md](AGENTS.md).
 
-## Landing page
-
-The marketing/landing site lives in the `landing/` submodule ([LevwTech/warpy-landing](https://github.com/LevwTech/warpy-landing)).
-
 ## Widget
 
 [![npm](https://img.shields.io/npm/v/%40warpy-ai%2Fwidget?label=npm)](https://www.npmjs.com/package/@warpy-ai/widget)

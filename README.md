@@ -34,8 +34,6 @@ Agent-specific instructions live in [AGENTS.md](AGENTS.md).
 
 ## Widget
 
-[![npm](https://img.shields.io/npm/v/%40appilot-ai%2Fwidget?label=npm)](https://www.npmjs.com/package/@appilot-ai/widget)
-
 Tiny, framework-agnostic loader for the Appilot embeddable widget.
 
 The package source lives in [`widget/`](widget/) as a normal tracked directory in this repo.

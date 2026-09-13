@@ -46,10 +46,9 @@ This repo contains these projects:
 |-----------|------|---------|
 | `frontend/` + `backend/` | (this repo) | Core platform — dashboard, API, agent engine, and all backend services. |
 | `docs-site/` | `docs` (submodule) | Public Mintlify documentation site for customers and implementers. |
-| `landing/` | `warpy-landing` (submodule) | Public marketing site / landing page. |
 | `widget/` | (this repo) | The `@warpy-ai/widget` package customers install to embed Warpy in their dashboards. |
 
-`docs-site/` and `landing/` are submodules with their own git history. Commit inside those submodules first, then update the reference in the parent repo. `widget/` is a normal tracked package directory in this repo, not a submodule.
+`docs-site/` is a submodule with its own git history. Commit inside the submodule first, then update the reference in the parent repo. `widget/` is a normal tracked package directory in this repo, not a submodule.
 `docs-site/` is public customer-facing documentation. Do not put internal-only implementation details, engineering notes, or private operational guidance there.
 
 ## Modes

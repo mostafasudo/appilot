@@ -1,6 +1,3 @@
-[submodule "landing"]
-	path = landing
-	url = git@github.com:LevwTech/warpy-landing.git
 [submodule "docs-site"]
 	path = docs-site
 	url = git@github.com:LevwTech/docs.git

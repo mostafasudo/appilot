@@ -20,10 +20,6 @@ Appilot is a lightweight assistant customers embed in their SaaS dashboards with
 - **Knowledge Base:** uploaded files + public websites with source-aware hybrid retrieval
 - **Auth:** Clerk
 
-## Planning
-
-We use the GitHub Project in this repo (Projects tab) for planning and task tracking (no Linear / external PM tools).
-
 ## Docs
 
 If you change a feature or surface, update its equivalent doc file in `docs/` when one exists. Keep this README human-facing: it should cover what Appilot is, how to run the dev environment, and only the most relevant project-level pointers. Put implementation details, automation internals, operational runbooks, and edge-case behavior in `docs/`, not here.

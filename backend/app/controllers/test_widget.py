@@ -102,10 +102,10 @@ def seed_lifetime_actions(actions: int) -> None:
 
 def send_widget_request(websocket, request: dict, *, widget_token: str | None = None) -> dict:
     request_payload = dict(request)
-    last_request_id = getattr(websocket, "_warpy_request_id", None)
+    last_request_id = getattr(websocket, "_appilot_request_id", None)
     request_id = request_payload.get("requestId") or last_request_id or f"req_{uuid4()}"
     request_payload["requestId"] = request_id
-    setattr(websocket, "_warpy_request_id", request_id)
+    setattr(websocket, "_appilot_request_id", request_id)
     payload = {"type": "chat.request", "request": request_payload}
     if widget_token:
         payload["widgetToken"] = widget_token
@@ -162,15 +162,15 @@ def test_widget_config_returns_headers(client: TestClient):
     assert "headers" in body
     assert body["isWidgetHidden"] is True
     assert body["actionsRemaining"] == 0
-    assert body["widgetTitle"] == "Warpy"
+    assert body["widgetTitle"] == "Appilot"
     assert body["widgetIconUrl"] is None
     assert body["widgetAppearanceMode"] == "infer"
-    assert body["widgetResponseMode"] == "warpy_components"
+    assert body["widgetResponseMode"] == "appilot_components"
     assert body["widgetTheme"] is None
     assert body["widgetBehavior"] == "overlay"
     assert body["widgetEmptyTitle"] == "What would you like to do?"
     assert body["widgetEmptyDescription"] == "Ask a question, request help, or describe what you want to get done."
-    assert body["widgetInputPlaceholder"] == "Ask Warpy…"
+    assert body["widgetInputPlaceholder"] == "Ask Appilot…"
     assert body["widgetSuggestionsEnabled"] is False
     assert body["widgetStarterSuggestions"] == []
 
@@ -186,7 +186,7 @@ def test_build_widget_agent_runtime_hides_knowledge_base_without_searchable_sour
         runtime = build_widget_agent_runtime(session, agent)
 
     assert runtime.executor_config["knowledge_base_enabled"] is False
-    assert runtime.executor_config["widget_response_mode"] == "warpy_components"
+    assert runtime.executor_config["widget_response_mode"] == "appilot_components"
     assert runtime.executor_config["native_component_catalog"] == []
 
 
@@ -248,12 +248,12 @@ def test_widget_session_returns_dynamic_suggestions(client: TestClient, monkeypa
         "/agent/widget-config",
         headers=auth_headers(),
         json={
-            "widgetTitle": "Warpy",
+            "widgetTitle": "Appilot",
             "widgetIconUrl": None,
             "widgetBehavior": "overlay",
             "widgetEmptyTitle": "What would you like to do?",
             "widgetEmptyDescription": "Ask a question, request help, or describe what you want to get done.",
-            "widgetInputPlaceholder": "Ask Warpy…",
+            "widgetInputPlaceholder": "Ask Appilot…",
             "widgetSuggestionsEnabled": True,
             "widgetStarterSuggestions": ["Show unpaid invoices"],
             "widgetSecurityDisclosureEnabled": True,

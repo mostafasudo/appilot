@@ -143,7 +143,7 @@ def _require_admin_token(request: Request) -> None:
     expected = settings.billing_admin_token.strip()
     if not expected:
         raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="Enterprise billing is not configured")
-    provided = (request.headers.get("x-warpy-admin-token") or "").strip()
+    provided = (request.headers.get("x-appilot-admin-token") or "").strip()
     if not provided or not secrets.compare_digest(provided, expected):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Forbidden")
 

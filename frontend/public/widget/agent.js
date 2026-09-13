@@ -9,8 +9,8 @@
   const UI_STORAGE_KEY = "cta_widget_ui_state";
   const API_TIMEOUT = 30000;
   const API_URL = "http://localhost:8000";
-  const PROD_API_URL = "https://api.warpy.ai";
-  const DASHBOARD_ENVIRONMENT = "__WARPY_DASHBOARD_ENVIRONMENT__";
+  const PROD_API_URL = "https://api.appilot.ai";
+  const DASHBOARD_ENVIRONMENT = "__APPILOT_DASHBOARD_ENVIRONMENT__";
   const LOCAL_PORT_OFFSET = 2827;
   const MARKED_SRC = "https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js";
   const MARKED_INTEGRITY = "sha384-/TQbtLCAerC3jgaim+N78RZSDYV7ryeoBCVqTuzRrFec2akfBkHS7ACQ3PQhvMVi";
@@ -36,8 +36,8 @@
   const MESSAGE_STORAGE_VERSION = 2;
   const MESSAGE_ID_PREFIX = "msg_";
   const SCROLL_BOTTOM_THRESHOLD = 24;
-  const PREVIEW_EVENT_NAME = "warpy:preview:update";
-  const PREVIEW_BOOTSTRAP_KEY = "__WARPY_WIDGET_PREVIEW__";
+  const PREVIEW_EVENT_NAME = "appilot:preview:update";
+  const PREVIEW_BOOTSTRAP_KEY = "__APPILOT_WIDGET_PREVIEW__";
   const DEFAULT_WIDGET_THEME = {
     version: 1,
     light: {
@@ -815,22 +815,22 @@
     return `${String(key || "").trim()}@${String(version || "1").trim() || "1"}`;
   }
 
-  function ensureWarpyNamespace() {
-    const existing = window.warpy;
+  function ensureAppilotNamespace() {
+    const existing = window.appilot;
     if (typeof existing !== "function") {
-      window.warpy = function () {
-        return Promise.reject(new Error("window.warpy handler is not registered"));
+      window.appilot = function () {
+        return Promise.reject(new Error("window.appilot handler is not registered"));
       };
-      window.warpy.__warpyFallbackHandler = true;
+      window.appilot.__appilotFallbackHandler = true;
     }
-    if (!window.warpy.__componentRegistry || typeof window.warpy.__componentRegistry !== "object") {
-      window.warpy.__componentRegistry = {};
+    if (!window.appilot.__componentRegistry || typeof window.appilot.__componentRegistry !== "object") {
+      window.appilot.__componentRegistry = {};
     }
-    return window.warpy;
+    return window.appilot;
   }
 
   function getComponentRegistry() {
-    return ensureWarpyNamespace().__componentRegistry;
+    return ensureAppilotNamespace().__componentRegistry;
   }
 
   function registerComponents(components) {
@@ -844,12 +844,12 @@
     });
   }
 
-  function installWarpyComponentRegistration() {
-    ensureWarpyNamespace();
-    window.warpy.registerComponents = registerComponents;
+  function installAppilotComponentRegistration() {
+    ensureAppilotNamespace();
+    window.appilot.registerComponents = registerComponents;
   }
 
-  installWarpyComponentRegistration();
+  installAppilotComponentRegistration();
 
   function resolveApiUrl() {
     try {
@@ -857,7 +857,7 @@
       if (preview && typeof preview.apiUrl === "string" && preview.apiUrl.trim()) {
         return preview.apiUrl.trim().replace(/\/$/, "");
       }
-      // Warpy-managed widget routes always go to Warpy's API origin.
+      // Appilot-managed widget routes always go to Appilot's API origin.
       // data-base-url is reserved for customer-owned backend calls only.
       const isLocal = DASHBOARD_ENVIRONMENT === "local";
       if (!isLocal) return PROD_API_URL.replace(/\/$/, "");
@@ -898,8 +898,8 @@
         return scripts.length ? scripts[scripts.length - 1] : null;
       })();
     if (!script) return null;
-    if (Array.isArray(script.__warpyComponents)) {
-      registerComponents(script.__warpyComponents);
+    if (Array.isArray(script.__appilotComponents)) {
+      registerComponents(script.__appilotComponents);
     }
     return {
       agentId: script.getAttribute("data-agent-id"),
@@ -1522,7 +1522,7 @@
 
   function isElementVisible(el) {
     if (!el || el.nodeType !== 1) return false;
-    if (el.getAttribute && el.getAttribute("data-warpy-ui") === "true") return false;
+    if (el.getAttribute && el.getAttribute("data-appilot-ui") === "true") return false;
     if (el.closest && el.closest(`#${WIDGET_CONTAINER_ID}`)) return false;
     const style = getComputedStyle(el);
     if (!style || style.display === "none" || style.visibility === "hidden" || parseFloat(style.opacity) === 0) return false;
@@ -2098,7 +2098,7 @@
       if (currentDepth > depth) return;
       if (!el || el.nodeType !== 1) return;
       if (!isElementConnected(el)) return;
-      if (el.getAttribute && el.getAttribute("data-warpy-ui") === "true") return;
+      if (el.getAttribute && el.getAttribute("data-appilot-ui") === "true") return;
       if (el.closest && el.closest("#" + WIDGET_CONTAINER_ID)) return;
       const style = getComputedStyle(el);
       if (!style || style.display === "none" || style.visibility === "hidden") return;
@@ -2214,7 +2214,7 @@
     if (!rect || rect.width <= 0 || rect.height <= 0) return;
     if (!highlightEl) {
       highlightEl = document.createElement("div");
-      highlightEl.setAttribute("data-warpy-ui", "true");
+      highlightEl.setAttribute("data-appilot-ui", "true");
       highlightEl.style.position = "fixed";
       highlightEl.style.pointerEvents = "none";
       highlightEl.style.zIndex = "2147482999";
@@ -3344,7 +3344,7 @@
 
   async function executeEndpointToolCall(toolCall, baseUrl, authConfig, headerConfig, sendCookiesWithRequests, signal) {
     throwIfAborted(signal);
-    // Backend tools execute against the customer-configured base URL, not Warpy's API.
+    // Backend tools execute against the customer-configured base URL, not Appilot's API.
     const sessionRequestConfig = buildRequestConfig(authConfig, headerConfig, sendCookiesWithRequests);
     const path = substitutePath(toolCall.path, toolCall.params || {});
     const url = new URL(path, baseUrl.endsWith("/") ? baseUrl : baseUrl + "/");
@@ -3470,17 +3470,17 @@
     if (!toolName) {
       return { id: toolCall.id, statusCode: 400, body: null, error: "Frontend tool name is required" };
     }
-    if (typeof window.warpy !== "function" || window.warpy.__warpyFallbackHandler === true) {
+    if (typeof window.appilot !== "function" || window.appilot.__appilotFallbackHandler === true) {
       return {
         id: toolCall.id,
         statusCode: 400,
         body: { kind: "frontend_tool", tool: toolName },
-        error: "window.warpy handler is not registered",
+        error: "window.appilot handler is not registered",
       };
     }
     const vars = toolCall.params && typeof toolCall.params === "object" ? toolCall.params : {};
     try {
-      const result = await window.warpy(toolName, vars);
+      const result = await window.appilot(toolName, vars);
       return {
         id: toolCall.id,
         statusCode: 200,
@@ -5464,15 +5464,15 @@
       </svg>
     `;
 
-    let widgetTitle = "Warpy";
+    let widgetTitle = "Appilot";
     let widgetIconUrl = null;
     let widgetAppearanceMode = "infer";
-    let widgetResponseMode = "warpy_components";
+    let widgetResponseMode = "appilot_components";
     let widgetTheme = null;
     let widgetBehavior = "overlay";
     let widgetEmptyTitle = "What would you like to do?";
     let widgetEmptyDescription = "Ask a question, request help, or describe what you want to get done.";
-    let widgetInputPlaceholder = "Ask Warpy…";
+    let widgetInputPlaceholder = "Ask Appilot…";
     let widgetSuggestionsEnabled = false;
     let widgetStarterSuggestions = [];
     let securityDisclosureEnabled = true;
@@ -5629,7 +5629,7 @@
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                 </svg>
               </div>
-              <p class="cta-security-provider-name">Warpy.ai</p>
+              <p class="cta-security-provider-name">Appilot.ai</p>
             </div>
           </div>
           <div class="cta-security-section">
@@ -6565,7 +6565,7 @@
     function postPreviewMessage(type, payload) {
       if (!isPreview || window.parent === window) return;
       window.parent.postMessage({
-        type: `warpy-widget-preview:${type}`,
+        type: `appilot-widget-preview:${type}`,
         ...payload,
       }, "*");
     }
@@ -6591,11 +6591,11 @@
         return [
           {
             role: "assistant",
-            content: "Native components render in your app. The live preview shows this fallback because Warpy does not have access to your component library.",
+            content: "Native components render in your app. The live preview shows this fallback because Appilot does not have access to your component library.",
             renderPayload: {
               kind: "native_components",
               version: 1,
-              markdownFallback: "Native components render in your app. The live preview shows this fallback because Warpy does not have access to your component library.",
+              markdownFallback: "Native components render in your app. The live preview shows this fallback because Appilot does not have access to your component library.",
               componentKey: "customer_invoice_summary",
               componentVersion: "1",
               props: { content: "Preview fallback" },
@@ -6603,13 +6603,13 @@
           },
         ];
       }
-      if (widgetResponseMode === "warpy_components") {
+      if (widgetResponseMode === "appilot_components") {
         return [
           {
             role: "assistant",
             content: "You have **3 invoices** waiting for review. I can summarize them, open the billing screen, or start a refund.",
             renderPayload: {
-              kind: "warpy_components",
+              kind: "appilot_components",
               version: 1,
               markdownFallback: "You have **3 invoices** waiting for review. I can summarize them, open the billing screen, or start a refund.",
               tree: [
@@ -6800,7 +6800,7 @@
       appendMarkdownFallback(node, payload && payload.markdownFallback || fallbackContent);
     }
 
-    function renderWarpyPayload(node, payload, fallbackContent) {
+    function renderAppilotPayload(node, payload, fallbackContent) {
       const tree = Array.isArray(payload && payload.tree) ? payload.tree : [];
       if (!tree.length) return false;
       const root = document.createElement("div");
@@ -6891,7 +6891,7 @@
         return true;
       }
       if (typeof result === "function") {
-        mount.__warpyCleanup = result;
+        mount.__appilotCleanup = result;
         return true;
       }
       return result == null && (mount.childNodes.length > 0 || mount.textContent.trim().length > 0);
@@ -6900,8 +6900,8 @@
     function renderMessagePayload(node, message) {
       const payload = message && message.renderPayload;
       if (!payload || typeof payload !== "object") return false;
-      if (payload.kind === "warpy_components") {
-        return renderWarpyPayload(node, payload, message.content);
+      if (payload.kind === "appilot_components") {
+        return renderAppilotPayload(node, payload, message.content);
       }
       if (payload.kind === "native_components") {
         return renderNativePayload(node, payload, message.content);
@@ -6912,13 +6912,13 @@
     function cleanupMessageNode(node) {
       if (!node || typeof node.querySelectorAll !== "function") return;
       node.querySelectorAll(".cta-widget-native-mount").forEach(function (mount) {
-        if (typeof mount.__warpyCleanup === "function") {
+        if (typeof mount.__appilotCleanup === "function") {
           try {
-            mount.__warpyCleanup();
+            mount.__appilotCleanup();
           } catch (_error) {
             void _error;
           }
-          mount.__warpyCleanup = null;
+          mount.__appilotCleanup = null;
         }
       });
     }
@@ -7543,7 +7543,7 @@
       if (data.widgetAppearanceMode === "custom" || data.widgetAppearanceMode === "infer") {
         widgetAppearanceMode = data.widgetAppearanceMode;
       }
-      if (data.widgetResponseMode === "markdown" || data.widgetResponseMode === "warpy_components" || data.widgetResponseMode === "native_components") {
+      if (data.widgetResponseMode === "markdown" || data.widgetResponseMode === "appilot_components" || data.widgetResponseMode === "native_components") {
         widgetResponseMode = data.widgetResponseMode;
       }
       widgetTheme = data.widgetTheme && typeof data.widgetTheme === "object" ? cloneObject(data.widgetTheme) : null;
@@ -7595,7 +7595,7 @@
       if (!config.baseUrl) {
         throw new Error("Missing baseUrl");
       }
-      // The refresh endpoint is customer-owned and proxies to Warpy server-to-server.
+      // The refresh endpoint is customer-owned and proxies to Appilot server-to-server.
       const url = new URL(widgetRefreshEndpointPath, config.baseUrl.endsWith("/") ? config.baseUrl : config.baseUrl + "/");
       const sessionRequestConfig = buildRequestConfig(authConfig, headerConfig, sendCookiesWithRequests);
       const res = await fetchWithTimeout(url.toString(), {
@@ -7621,7 +7621,7 @@
       if (!normalizedBase) {
         throw new Error("Missing API base URL for WebSocket session");
       }
-      // Widget session traffic always targets Warpy's API base, never the customer backend baseUrl.
+      // Widget session traffic always targets Appilot's API base, never the customer backend baseUrl.
       const url = new URL("widget/session", normalizedBase.endsWith("/") ? normalizedBase : `${normalizedBase}/`);
       url.protocol = url.protocol === "https:" ? "wss:" : "ws:";
       return url.toString();
@@ -8378,7 +8378,7 @@
       const previewBootstrap = getPreviewBootstrap();
       const config = getScriptData();
       if (!config || !config.agentId) {
-        console.warn("[Warpy] Missing data-agent-id attribute");
+        console.warn("[Appilot] Missing data-agent-id attribute");
         return;
       }
 

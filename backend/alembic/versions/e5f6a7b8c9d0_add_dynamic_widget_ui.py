@@ -21,7 +21,7 @@ depends_on: Union[str, Sequence[str], None] = None
 def upgrade() -> None:
     op.add_column(
         "agents",
-        sa.Column("widget_response_mode", sa.Text(), nullable=False, server_default="warpy_components"),
+        sa.Column("widget_response_mode", sa.Text(), nullable=False, server_default="appilot_components"),
     )
     op.execute(sa.text("UPDATE agents SET widget_response_mode = 'markdown'"))
     op.add_column("messages", sa.Column("render_payload", sa.JSON(), nullable=True))

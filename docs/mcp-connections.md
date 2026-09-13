@@ -2,7 +2,7 @@
 
 ## Overview
 
-Warpy can now connect to remote HTTP MCP servers without importing their tools into Features.
+Appilot can now connect to remote HTTP MCP servers without importing their tools into Features.
 
 The model is intentionally split:
 
@@ -10,7 +10,7 @@ The model is intentionally split:
 - The widget exchanges the current user session for short-lived MCP headers when needed.
 - The backend agent runtime lists and calls MCP tools live during each run step.
 
-Features remain the control plane only for manually configured Warpy tools.
+Features remain the control plane only for manually configured Appilot tools.
 
 ## Saved connection fields
 
@@ -31,29 +31,29 @@ Security: `static_headers` may contain sensitive credentials. Treat access to AP
 ## Runtime flow
 
 ```text
-Widget -> Warpy API                  : GET /widget/config/{agentId}
-Warpy API -> Widget                  : safe MCP connection summaries
+Widget -> Appilot API                  : GET /widget/config/{agentId}
+Appilot API -> Widget                  : safe MCP connection summaries
 Widget -> Customer app               : POST token_exchange_path (using current browser session)
 Customer app -> Widget               : { headers, expiresAt? }
-Widget -> Warpy API websocket        : chat.request + mcpAuthBundles
-Warpy API -> MCP server              : list_tools / call_tool with short-lived headers
-MCP server -> Warpy API              : live tool metadata or tool result
-Warpy API -> Widget                  : final answer or MCP_AUTH_EXPIRED retryable error
+Widget -> Appilot API websocket        : chat.request + mcpAuthBundles
+Appilot API -> MCP server              : list_tools / call_tool with short-lived headers
+MCP server -> Appilot API              : live tool metadata or tool result
+Appilot API -> Widget                  : final answer or MCP_AUTH_EXPIRED retryable error
 ```
 
 ## Auth behavior
 
 ### `none`
 
-Warpy connects to the MCP server with no extra request headers.
+Appilot connects to the MCP server with no extra request headers.
 
 ### `static_headers`
 
-Warpy connects with the saved static header map on every MCP request.
+Appilot connects with the saved static header map on every MCP request.
 
 ### `token_exchange`
 
-Warpy never stores end-user tokens.
+Appilot never stores end-user tokens.
 
 Instead:
 
@@ -68,7 +68,7 @@ If the MCP server returns an auth failure, the backend emits `MCP_AUTH_EXPIRED` 
 
 `find_tools` now merges two sources:
 
-- DB-backed Warpy tools from `tools` / embeddings
+- DB-backed Appilot tools from `tools` / embeddings
 - live MCP tools from all configured MCP connections
 
 MCP tools are surfaced with opaque refs:
@@ -76,12 +76,12 @@ MCP tools are surfaced with opaque refs:
 - DB tools: `db:<tool_uuid>`
 - MCP tools: `mcp:<connection_uuid>:<server_tool_name>`
 
-These refs are cached in widget pending state and Redis tool cache so MCP tools can survive a paused run without becoming persisted Warpy tool rows.
+These refs are cached in widget pending state and Redis tool cache so MCP tools can survive a paused run without becoming persisted Appilot tool rows.
 
 ## Out of scope
 
 - importing MCP tools into Features
 - background sync or drift detection
-- Warpy-managed OAuth prompts
+- Appilot-managed OAuth prompts
 - MCP resources or prompts
 - local stdio MCP servers

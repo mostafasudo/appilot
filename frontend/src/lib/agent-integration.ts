@@ -3,10 +3,10 @@ import { getApiUrl } from "@/api/client"
 export const maskApiKey = (last4: string) => `••••••••••••${last4}`
 
 export const getIntegrationDocUrl = () =>
-  new URL("/static/integrate-warpy.md", getApiUrl()).toString()
+  new URL("/static/integrate-appilot.md", getApiUrl()).toString()
 
 export const buildCodingAgentPrompt = (apiKey: string) =>
-  `Fetch ${getIntegrationDocUrl()} and follow the instructions to integrate Warpy into this project. My API key is: ${apiKey}`
+  `Fetch ${getIntegrationDocUrl()} and follow the instructions to integrate Appilot into this project. My API key is: ${apiKey}`
 
 export const buildWidgetTokenRefreshPrompt = (agentApiBaseUrl: string, widgetRefreshEndpointPath: string) => `You are implementing a secure widget token refresh endpoint.
 
@@ -15,8 +15,8 @@ Goal
 
 Requirements
 
-- Store your Warpy API key in a server-side environment variable (never expose it to the browser).
-- call: POST ${agentApiBaseUrl}/widget-token Authorization: Bearer <WARPY_API_KEY>
+- Store your Appilot API key in a server-side environment variable (never expose it to the browser).
+- call: POST ${agentApiBaseUrl}/widget-token Authorization: Bearer <APPILOT_API_KEY>
 - Return the upstream JSON exactly as: { token: "<jwt>" }
 - The JWT is short-lived (~5 minutes). Do not cache.
 

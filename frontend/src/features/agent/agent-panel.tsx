@@ -103,9 +103,9 @@ const PACKAGE_MANAGER_OPTIONS: Array<{ value: WidgetInstallPackageManager; label
 ]
 
 const buildInstallCommand = (packageManager: WidgetInstallPackageManager) => {
-  if (packageManager === "pnpm") return "pnpm add @warpy-ai/widget"
-  if (packageManager === "yarn") return "yarn add @warpy-ai/widget"
-  return "npm install @warpy-ai/widget"
+  if (packageManager === "pnpm") return "pnpm add @appilot-ai/widget"
+  if (packageManager === "yarn") return "yarn add @appilot-ai/widget"
+  return "npm install @appilot-ai/widget"
 }
 
 const buildUsageSnippet = ({
@@ -126,7 +126,7 @@ const buildUsageSnippet = ({
   const baseUrlObjectEntry = normalizedBaseUrl ? `\n    baseUrl: "${normalizedBaseUrl}",` : ""
   if (framework === "script") return scriptSnippet
   if (framework === "react") {
-    return `import { Widget } from "@warpy-ai/widget/react"
+    return `import { Widget } from "@appilot-ai/widget/react"
 
 <Widget
   agentId="${agentId}"${baseUrlProp}
@@ -134,7 +134,7 @@ const buildUsageSnippet = ({
 />`
   }
   if (framework === "vue") {
-    return `import { Widget } from "@warpy-ai/widget/vue"
+    return `import { Widget } from "@appilot-ai/widget/vue"
 
 <Widget
   agentId="${agentId}"${baseUrlProp}
@@ -142,22 +142,22 @@ const buildUsageSnippet = ({
 />`
   }
   if (framework === "angular") {
-    return `import { WidgetComponent } from "@warpy-ai/widget/angular"
+    return `import { WidgetComponent } from "@appilot-ai/widget/angular"
 
-<warpy-widget
+<appilot-widget
   agentId="${agentId}"${baseUrlProp}
   scriptSrc="${scriptSrc}"
-></warpy-widget>`
+></appilot-widget>`
   }
   if (framework === "svelte") {
-    return `import Widget from "@warpy-ai/widget/svelte"
+    return `import Widget from "@appilot-ai/widget/svelte"
 
 <Widget
   agentId="${agentId}"${baseUrlProp}
   scriptSrc="${scriptSrc}"
 />`
   }
-  return `import { mountWidget } from "@warpy-ai/widget"
+  return `import { mountWidget } from "@appilot-ai/widget"
 
 let widget = null
 const shouldShow = true
@@ -909,7 +909,7 @@ const AdvancedSecurityPanel = () => {
                 </div>
 
                 <div className="space-y-3">
-                  <Label className="text-sm font-semibold">Warpy API Key</Label>
+                  <Label className="text-sm font-semibold">Appilot API Key</Label>
                   <div className="flex flex-col gap-3 sm:flex-row">
                     <div className="flex-1">
                       {apiKeyQuery.isPending ? (
@@ -919,7 +919,7 @@ const AdvancedSecurityPanel = () => {
                           readOnly
                           disabled={!maskedApiKey}
                           value={maskedApiKey ?? ""}
-                          placeholder="Open API Config to create the Warpy API key"
+                          placeholder="Open API Config to create the Appilot API key"
                           className="font-mono"
                         />
                       )}
@@ -960,7 +960,7 @@ const AdvancedSecurityPanel = () => {
                 <div className="rounded-lg border border-border bg-muted/20 p-4">
                   <h4 className="mb-2 text-sm font-semibold">Setup</h4>
                   <ol className="ml-4 list-decimal space-y-2 text-sm text-muted-foreground">
-                    <li>Store your Warpy API key server-side as an environment variable.</li>
+                    <li>Store your Appilot API key server-side as an environment variable.</li>
                     <li>
                       Implement{" "}
                       <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">

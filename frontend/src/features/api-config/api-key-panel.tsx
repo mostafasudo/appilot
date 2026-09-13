@@ -31,7 +31,7 @@ export const ApiKeyPanel = () => {
     try {
       const response = await revealApiKey.mutateAsync()
       await handleCopy(response.apiKey, "current-key")
-      addToast({ title: "API key copied", description: "The current Warpy API key is in your clipboard.", variant: "success" })
+      addToast({ title: "API key copied", description: "The current Appilot API key is in your clipboard.", variant: "success" })
     } catch (error) {
       const message = error instanceof Error ? error.message : "Could not copy the API key"
       addToast({ title: "Copy failed", description: message, variant: "error" })
@@ -50,16 +50,16 @@ export const ApiKeyPanel = () => {
   }
 
   return (
-    <PanelShell title="Warpy API Key" description="Use this key to control Warpy via agents.">
+    <PanelShell title="Appilot API Key" description="Use this key to control Appilot via agents.">
       <div className="space-y-5">
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
           <div className="space-y-2">
-            <Label htmlFor="warpy-api-key">Current key</Label>
+            <Label htmlFor="appilot-api-key">Current key</Label>
             {apiKeyQuery.isPending ? (
               <Skeleton className="h-10 w-full rounded-lg" />
             ) : (
               <Input
-                id="warpy-api-key"
+                id="appilot-api-key"
                 readOnly
                 value={apiKeyQuery.data ? maskApiKey(apiKeyQuery.data.apiKeyLast4) : ""}
                 className="font-mono"

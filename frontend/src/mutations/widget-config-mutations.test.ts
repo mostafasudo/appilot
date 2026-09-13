@@ -35,7 +35,7 @@ describe("widget config mutations", () => {
       widgetTitle: "Acme",
       widgetIconUrl: null,
       widgetAppearanceMode: "infer",
-      widgetResponseMode: "warpy_components",
+      widgetResponseMode: "appilot_components",
       widgetTheme: null,
       widgetBehavior: "overlay",
       widgetEmptyTitle: "Hi",

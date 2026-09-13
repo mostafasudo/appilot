@@ -115,7 +115,7 @@ const buildTokenExchangePrompt = (connection: FormState) =>
     "",
     "Context",
     `- This endpoint is for the MCP server: ${connection.serverUrl.trim() || "<MCP_SERVER_URL>"}`,
-    "- Warpy calls this path using the current user's normal dashboard session.",
+    "- Appilot calls this path using the current user's normal dashboard session.",
     "- Do not show any new login prompt or OAuth popup to the end user.",
     "",
     "Requirements",
@@ -323,7 +323,7 @@ export const McpConnectionsPanel = () => {
               ) : (
                 <TableRow>
                   <TableCell colSpan={5} className="py-10 text-center text-sm text-muted-foreground">
-                    Add your first MCP server to let Warpy discover and call live MCP tools directly.
+                    Add your first MCP server to let Appilot discover and call live MCP tools directly.
                   </TableCell>
                 </TableRow>
               )}
@@ -335,7 +335,7 @@ export const McpConnectionsPanel = () => {
           <DialogHeader>
             <DialogTitle>{form.id ? "Edit MCP connection" : "Add MCP connection"}</DialogTitle>
             <DialogDescription>
-              Save one MCP server here, then Warpy can discover its tools live during a run.
+              Save one MCP server here, then Appilot can discover its tools live during a run.
             </DialogDescription>
           </DialogHeader>
 
@@ -436,7 +436,7 @@ export const McpConnectionsPanel = () => {
                 <section className="space-y-4 rounded-xl border border-border/70 bg-muted/10 p-4">
                   <div className="space-y-2">
                     <Label htmlFor="mcp-token-exchange-path">Token exchange endpoint</Label>
-                    <p className="text-sm text-muted-foreground">Warpy sends a <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">POST</code> request to this path on your app.</p>
+                    <p className="text-sm text-muted-foreground">Appilot sends a <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">POST</code> request to this path on your app.</p>
                     <div className="flex overflow-hidden rounded-lg border border-input bg-background focus-within:ring-2 focus-within:ring-ring">
                       <span className="flex items-center border-r border-input bg-muted px-3 font-mono text-sm text-muted-foreground">
                         POST
@@ -452,7 +452,7 @@ export const McpConnectionsPanel = () => {
                     </div>
                   </div>
                   <div className="space-y-2 rounded-lg border border-border/70 bg-background/70 p-4 text-sm text-muted-foreground">
-                    <p>Warpy calls this path on your app using the browser&apos;s stored signed-in session.</p>
+                    <p>Appilot calls this path on your app using the browser&apos;s stored signed-in session.</p>
                     <p>Your app returns short-lived MCP headers for that user.</p>
                   </div>
                   <Button type="button" variant="outline" className="gap-2" onClick={() => void handleCopyPrompt()} data-testid="copy-mcp-token-exchange-prompt">

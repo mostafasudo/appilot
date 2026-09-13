@@ -6,7 +6,7 @@ from typing import Any
 
 from ..schemas.widget_dynamic_ui import WidgetRenderPayload
 
-WIDGET_RESPONSE_MODES = {"markdown", "warpy_components", "native_components"}
+WIDGET_RESPONSE_MODES = {"markdown", "appilot_components", "native_components"}
 MAX_SUMMARY_BODY_CHARS = 420
 MAX_CARD_TITLE_CHARS = 80
 MAX_LIST_ITEMS = 6
@@ -115,7 +115,7 @@ def format_widget_markdown_response(markdown: str, *, user_message: str | None =
 
 
 def normalize_widget_response_mode(value: str | None) -> str:
-    return value if value in WIDGET_RESPONSE_MODES else "warpy_components"
+    return value if value in WIDGET_RESPONSE_MODES else "appilot_components"
 
 
 def build_widget_render_payload(
@@ -133,16 +133,16 @@ def build_widget_render_payload(
     try:
         if mode == "native_components":
             return _build_native_payload(raw_markdown, native_components or [])
-        return _build_warpy_payload(raw_markdown)
+        return _build_appilot_payload(raw_markdown)
     except Exception:
         return None
 
 
-def _build_warpy_payload(markdown: str) -> dict[str, Any] | None:
+def _build_appilot_payload(markdown: str) -> dict[str, Any] | None:
     table = _parse_markdown_table(markdown)
     if table:
         payload = WidgetRenderPayload(
-            kind="warpy_components",
+            kind="appilot_components",
             markdownFallback=markdown,
             tree=[{"component": "compact_table", "props": table}],
         )
@@ -169,7 +169,7 @@ def _build_warpy_payload(markdown: str) -> dict[str, Any] | None:
                 "props": {"items": [{"label": item, "status": "neutral"} for item in bullets]},
             },
         ]
-        payload = WidgetRenderPayload(kind="warpy_components", markdownFallback=markdown, tree=nodes)
+        payload = WidgetRenderPayload(kind="appilot_components", markdownFallback=markdown, tree=nodes)
         return payload.model_dump(by_alias=True, exclude_none=True)
 
     return None

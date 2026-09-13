@@ -32,7 +32,7 @@ const stepOrder: OnboardingStep[] = ["website", "baseUrl", "auth", "agent"]
 const stepMeta: Record<OnboardingStep, { label: string; title: string; description: string; icon: typeof Globe }> = {
   website: {
     label: "Website",
-    title: "Welcome to Warpy, let's get started.",
+    title: "Welcome to Appilot, let's get started.",
     description: "Tell us where your product lives so we can start reading it for your agent.",
     icon: Globe
   },

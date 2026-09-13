@@ -29,7 +29,7 @@ Agent -> search_knowledge_base
       -> source-aware evidence
 ```
 
-Files are parsed through Unstructured. Website pages are fetched with `httpx` first and fall back to Playwright when the raw HTML is not good enough, such as app-shell responses, JS-heavy pages, or weak extracted text. Website extraction is completeness-first: Warpy stores the full cleaned text from the page-wide content root in DOM order instead of trying to keep only selected semantic tags, and it also captures human-readable control metadata such as option labels or pricing values that live in attributes instead of text nodes. Crawl discovery also seeds from sitemap files, so websites with broken or shell-only root pages can still ingest their article URLs.
+Files are parsed through Unstructured. Website pages are fetched with `httpx` first and fall back to Playwright when the raw HTML is not good enough, such as app-shell responses, JS-heavy pages, or weak extracted text. Website extraction is completeness-first: Appilot stores the full cleaned text from the page-wide content root in DOM order instead of trying to keep only selected semantic tags, and it also captures human-readable control metadata such as option labels or pricing values that live in attributes instead of text nodes. Crawl discovery also seeds from sitemap files, so websites with broken or shell-only root pages can still ingest their article URLs.
 
 ## Source Model
 

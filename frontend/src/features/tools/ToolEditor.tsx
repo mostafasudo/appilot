@@ -144,7 +144,7 @@ export const ToolEditor = ({ editing, isSaving, onSave, onClose, features }: Too
       })
       .join("\n")
     const varsLine = varsLines ? `${varsLines}\n` : ""
-    return `window.warpy = async (toolName, vars) => {
+    return `window.appilot = async (toolName, vars) => {
   if (toolName === "${toolName}") {
 ${varsLine}    return { ok: true }
   }
@@ -179,7 +179,7 @@ ${varsLine}    return { ok: true }
         <div>
           <p className="text-lg font-semibold leading-tight sm:text-xl">{editing ? "Edit tool" : "New tool"}</p>
           <p className="text-sm text-muted-foreground sm:text-base">
-            {isBackendTool ? "Path params update automatically as you type." : "This tool runs in the browser with window.warpy(...)."}
+            {isBackendTool ? "Path params update automatically as you type." : "This tool runs in the browser with window.appilot(...)."}
           </p>
         </div>
         <div className="flex gap-2">
@@ -208,7 +208,7 @@ ${varsLine}    return { ok: true }
         <div className="space-y-3 rounded-xl border border-border/70 bg-muted/20 p-3">
           <div className="space-y-1">
             <p className="text-sm font-medium">Is this tool frontend or backend?</p>
-            <p className="text-xs text-muted-foreground">Backend tools call HTTP endpoints. Frontend tools call browser handlers through window.warpy.</p>
+            <p className="text-xs text-muted-foreground">Backend tools call HTTP endpoints. Frontend tools call browser handlers through window.appilot.</p>
           </div>
           <div className="flex flex-wrap gap-2">
             <Button

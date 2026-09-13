@@ -159,7 +159,7 @@ def test_create_frontend_tool_attaches_feature_metadata():
 
     tool = create_frontend_tool(tool_record)
 
-    assert tool.metadata["warpy_tool"]["feature"] == "UI"
+    assert tool.metadata["appilot_tool"]["feature"] == "UI"
 
 
 def test_create_find_tools_tool_handles_empty(monkeypatch: pytest.MonkeyPatch):

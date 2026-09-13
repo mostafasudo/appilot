@@ -6,13 +6,13 @@ import { homedir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const DEFAULT_STATE_DIR = resolve(homedir(), '.codex/state/warpy-gtm');
+const DEFAULT_STATE_DIR = resolve(homedir(), '.codex/state/appilot-gtm');
 const LOG_FILE = 'improvement-log.jsonl';
 const INDEX_FILE = 'improvement-log-index.json';
 const VALID_SOURCE_AUTOMATIONS = new Set([
-  'warpy-gtm-lead-builder',
-  'warpy-gtm-task-executor',
-  'warpy-gtm-improvement-review',
+  'appilot-gtm-lead-builder',
+  'appilot-gtm-task-executor',
+  'appilot-gtm-improvement-review',
   'manual',
 ]);
 const VALID_CATEGORIES = new Set([

@@ -203,7 +203,7 @@ const AgentHandoffPanel = () => {
       await navigator.clipboard.writeText(buildCodingAgentPrompt(response.apiKey))
       setCopied(true)
       setTimeout(() => setCopied(false), 1800)
-      addToast({ title: "Prompt copied", description: "The Warpy handoff prompt is in your clipboard.", variant: "success" })
+      addToast({ title: "Prompt copied", description: "The Appilot handoff prompt is in your clipboard.", variant: "success" })
     } catch (error) {
       const message = error instanceof Error ? error.message : "Could not copy the prompt"
       addToast({ title: "Copy failed", description: message, variant: "error" })
@@ -218,7 +218,7 @@ const AgentHandoffPanel = () => {
             <div className="space-y-1">
               <h3 className="text-2xl font-semibold tracking-tight">Paste this into your coding agent</h3>
               <p className="max-w-3xl text-sm text-muted-foreground">
-                That is the fastest path. The agent reads your codebase, fetches the Warpy manual, and helps you configure Warpy.
+                That is the fastest path. The agent reads your codebase, fetches the Appilot manual, and helps you configure Appilot.
               </p>
             </div>
           </div>
@@ -230,7 +230,7 @@ const AgentHandoffPanel = () => {
               </a>
             </div>
             <div className="space-y-2">
-              <p className="text-sm font-medium">Warpy API key</p>
+              <p className="text-sm font-medium">Appilot API key</p>
               {apiKeyQuery.isPending ? (
                 <Skeleton className="h-10 w-full rounded-lg" />
               ) : (

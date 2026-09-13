@@ -72,7 +72,7 @@ The signed-in frontend fetches this state before rendering `Shell`. If the query
 
 ### Website
 
-- Copy: `Welcome to Warpy, let's get started.`
+- Copy: `Welcome to Appilot, let's get started.`
 - Accepts bare domains such as `your-product.com`
 - Uses the same canonicalization, scope resolution, record creation, and ingest queue as the Knowledge Base website flow
 - Allows exactly one onboarding website even when the normal KB source gate is exhausted, but only if the user has no existing KB sources

@@ -35,8 +35,8 @@ def client():
         yield client
 
 
-def test_integrate_warpy_markdown_is_public_and_detailed(client: TestClient):
-    response = client.get("/static/integrate-warpy.md")
+def test_integrate_appilot_markdown_is_public_and_detailed(client: TestClient):
+    response = client.get("/static/integrate-appilot.md")
     assert response.status_code == 200
     assert response.headers["content-type"].startswith("text/markdown")
     body = response.text
@@ -50,6 +50,6 @@ def test_integrate_warpy_markdown_is_public_and_detailed(client: TestClient):
     assert "## Drift Detection Workflow" in body
     assert "`GET /api-key`" in body
     assert "`POST /api-key/rotate`" in body
-    assert "`window.warpy(name, vars)`" in body
+    assert "`window.appilot(name, vars)`" in body
     assert "/activity/summary" not in body
     assert "/billing" not in body

@@ -77,7 +77,7 @@ const CompactTable = ({ props }: { props: Record<string, unknown> }) => {
   )
 }
 
-const WarpyNode = ({ node }: { node: { component: string; props: Record<string, unknown> } }) => {
+const AppilotNode = ({ node }: { node: { component: string; props: Record<string, unknown> } }) => {
   if (node.component === "summary_card" || node.component === "record_card") return <SummaryCard props={node.props} />
   if (node.component === "notice") return <Notice props={node.props} />
   if (node.component === "compact_table") return <CompactTable props={node.props} />
@@ -85,17 +85,17 @@ const WarpyNode = ({ node }: { node: { component: string; props: Record<string, 
   return null
 }
 
-const isRenderableWarpyNode = (node: { component: string }) =>
+const isRenderableAppilotNode = (node: { component: string }) =>
   ["summary_card", "record_card", "notice", "compact_table", "status_list", "timeline", "source_list"].includes(node.component)
 
 export const WidgetRenderPayloadView = ({ content, renderPayload, className }: WidgetRenderPayloadViewProps) => {
-  if (renderPayload?.kind === "warpy_components") {
+  if (renderPayload?.kind === "appilot_components") {
     const tree = Array.isArray(renderPayload.tree) ? renderPayload.tree : []
-    if (!tree.some(isRenderableWarpyNode)) return <MarkdownContent className={cn("mt-2", className)}>{renderPayload.markdownFallback || content}</MarkdownContent>
+    if (!tree.some(isRenderableAppilotNode)) return <MarkdownContent className={cn("mt-2", className)}>{renderPayload.markdownFallback || content}</MarkdownContent>
     return (
       <div className={cn("mt-2 space-y-2", className)}>
         {tree.map((node, index) => (
-          <WarpyNode key={`${node.component}-${index}`} node={node} />
+          <AppilotNode key={`${node.component}-${index}`} node={node} />
         ))}
         {!tree.length ? <MarkdownContent>{content}</MarkdownContent> : null}
       </div>

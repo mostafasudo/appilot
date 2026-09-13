@@ -10,7 +10,7 @@ const STORAGE_KEY = "cta_widget_state"
 const UI_STORAGE_KEY = "cta_widget_ui_state"
 const PAGE_PUSH_OFFSET_VAR = "--cta-widget-push-offset"
 const PAGE_PUSH_ACTIVE_ATTR = "data-cta-widget-push-active"
-const WIDGET_ENVIRONMENT_TOKEN = "__WARPY_DASHBOARD_ENVIRONMENT__"
+const WIDGET_ENVIRONMENT_TOKEN = "__APPILOT_DASHBOARD_ENVIRONMENT__"
 
 const widgetTemplate = fs.readFileSync(path.resolve(process.cwd(), "public/widget/agent.js"), "utf8")
 const renderWidgetSource = (environment: string | null = "local") =>
@@ -29,7 +29,7 @@ type WidgetConfig = {
   mcpConnections?: Array<{ id: string; name: string; authMode: "none" | "static_headers" | "token_exchange"; tokenExchangePath?: string | null }>
   sendCookiesWithRequests?: boolean
   widgetAppearanceMode?: "infer" | "custom"
-  widgetResponseMode?: "markdown" | "warpy_components" | "native_components"
+  widgetResponseMode?: "markdown" | "appilot_components" | "native_components"
   widgetTheme?: {
     version: 1
     light: Record<string, unknown>
@@ -127,13 +127,13 @@ function createConfig(overrides: WidgetConfig = {}): Required<WidgetConfig> {
     sendCookiesWithRequests: false,
     securityDisclosureEnabled: true,
     widgetAppearanceMode: "infer",
-    widgetResponseMode: "warpy_components",
+    widgetResponseMode: "appilot_components",
     widgetTheme: null,
     widgetBehavior: "overlay",
-    widgetInputPlaceholder: "Ask Warpy…",
+    widgetInputPlaceholder: "Ask Appilot…",
     widgetStarterSuggestions: [],
     widgetSuggestionsEnabled: false,
-    widgetTitle: "Warpy",
+    widgetTitle: "Appilot",
     ...overrides,
   }
 }
@@ -445,7 +445,7 @@ async function loadWidget(
 }
 
 async function loadPreviewWidget(configOverrides: WidgetConfig = {}) {
-  ;(window as typeof window & { __WARPY_WIDGET_PREVIEW__?: unknown }).__WARPY_WIDGET_PREVIEW__ = {
+  ;(window as typeof window & { __APPILOT_WIDGET_PREVIEW__?: unknown }).__APPILOT_WIDGET_PREVIEW__ = {
     enabled: true,
     config: { agentId: AGENT_ID, baseUrl: "" },
     remoteConfig: createConfig(configOverrides),
@@ -515,8 +515,8 @@ describe("widget preview mode", () => {
     document.body.innerHTML = ""
     document.documentElement.removeAttribute(PAGE_PUSH_ACTIVE_ATTR)
     document.documentElement.style.removeProperty(PAGE_PUSH_OFFSET_VAR)
-    delete (window as typeof window & { __WARPY_WIDGET_PREVIEW__?: unknown }).__WARPY_WIDGET_PREVIEW__
-    delete (window as typeof window & { warpy?: unknown }).warpy
+    delete (window as typeof window & { __APPILOT_WIDGET_PREVIEW__?: unknown }).__APPILOT_WIDGET_PREVIEW__
+    delete (window as typeof window & { appilot?: unknown }).appilot
     localStorage.clear()
     sessionStorage.clear()
     setViewport(1280, 900)
@@ -544,7 +544,7 @@ describe("widget preview mode", () => {
     updatedTheme.light.colors.launcherIcon = "#DC2626"
 
     window.dispatchEvent(
-      new CustomEvent("warpy:preview:update", {
+      new CustomEvent("appilot:preview:update", {
         detail: {
           config: createConfig({
             widgetAppearanceMode: "custom",
@@ -581,7 +581,7 @@ describe("widget preview mode", () => {
     expect(MockWebSocket.instances).toHaveLength(0)
 
     window.dispatchEvent(
-      new CustomEvent("warpy:preview:update", {
+      new CustomEvent("appilot:preview:update", {
         detail: {
           scene: "empty",
         },
@@ -601,7 +601,7 @@ describe("widget preview mode", () => {
     expect(MockWebSocket.instances).toHaveLength(0)
 
     window.dispatchEvent(
-      new CustomEvent("warpy:preview:update", {
+      new CustomEvent("appilot:preview:update", {
         detail: {
           scene: "security",
         },
@@ -615,7 +615,7 @@ describe("widget preview mode", () => {
     })
 
     window.dispatchEvent(
-      new CustomEvent("warpy:preview:update", {
+      new CustomEvent("appilot:preview:update", {
         detail: {
           scene: "autopilot",
         },
@@ -647,7 +647,7 @@ describe("widget preview mode", () => {
     const preview = await loadPreviewWidget(config)
     const previewShadow = getShadowRoot(preview)
     window.dispatchEvent(
-      new CustomEvent("warpy:preview:update", {
+      new CustomEvent("appilot:preview:update", {
         detail: {
           scene: "empty",
         },
@@ -672,8 +672,8 @@ describe("widget preview mode", () => {
     document.body.innerHTML = ""
     sessionStorage.clear()
     localStorage.clear()
-    delete (window as typeof window & { __WARPY_WIDGET_PREVIEW__?: unknown }).__WARPY_WIDGET_PREVIEW__
-    delete (window as typeof window & { warpy?: unknown }).warpy
+    delete (window as typeof window & { __APPILOT_WIDGET_PREVIEW__?: unknown }).__APPILOT_WIDGET_PREVIEW__
+    delete (window as typeof window & { appilot?: unknown }).appilot
     MockWebSocket.reset()
 
     const actual = await loadWidget(config)
@@ -711,7 +711,7 @@ describe("widget preview mode", () => {
     })
 
     window.dispatchEvent(
-      new CustomEvent("warpy:preview:update", {
+      new CustomEvent("appilot:preview:update", {
         detail: {
           config: createConfig({
             widgetAppearanceMode: "custom",
@@ -744,7 +744,7 @@ describe("widget preview mode", () => {
     })
 
     window.dispatchEvent(
-      new CustomEvent("warpy:preview:update", {
+      new CustomEvent("appilot:preview:update", {
         detail: {
           scene: "security",
         },
@@ -772,8 +772,8 @@ describe("widget theme inference", () => {
     document.body.innerHTML = ""
     document.documentElement.removeAttribute(PAGE_PUSH_ACTIVE_ATTR)
     document.documentElement.style.removeProperty(PAGE_PUSH_OFFSET_VAR)
-    delete (window as typeof window & { __WARPY_WIDGET_PREVIEW__?: unknown }).__WARPY_WIDGET_PREVIEW__
-    delete (window as typeof window & { warpy?: unknown }).warpy
+    delete (window as typeof window & { __APPILOT_WIDGET_PREVIEW__?: unknown }).__APPILOT_WIDGET_PREVIEW__
+    delete (window as typeof window & { appilot?: unknown }).appilot
     localStorage.clear()
     sessionStorage.clear()
     setViewport(1280, 900)
@@ -850,8 +850,8 @@ describe("widget desktop resize", () => {
     document.body.innerHTML = ""
     document.documentElement.removeAttribute(PAGE_PUSH_ACTIVE_ATTR)
     document.documentElement.style.removeProperty(PAGE_PUSH_OFFSET_VAR)
-    delete (window as typeof window & { __WARPY_WIDGET_PREVIEW__?: unknown }).__WARPY_WIDGET_PREVIEW__
-    delete (window as typeof window & { warpy?: unknown }).warpy
+    delete (window as typeof window & { __APPILOT_WIDGET_PREVIEW__?: unknown }).__APPILOT_WIDGET_PREVIEW__
+    delete (window as typeof window & { appilot?: unknown }).appilot
     localStorage.clear()
     sessionStorage.clear()
     setViewport(1280, 900)
@@ -1018,7 +1018,7 @@ describe("widget desktop resize", () => {
     expect(shadowRoot.textContent).toContain("Here is the update.")
   })
 
-  it("renders Warpy component payloads from assistant messages", async () => {
+  it("renders Appilot component payloads from assistant messages", async () => {
     MockWebSocket.handler = (socket) => {
       socket.receive({
         type: "chat.response",
@@ -1029,7 +1029,7 @@ describe("widget desktop resize", () => {
               role: "assistant",
               content: "Fallback summary.",
               renderPayload: {
-                kind: "warpy_components",
+                kind: "appilot_components",
                 version: 1,
                 markdownFallback: "Fallback summary.",
                 tree: [
@@ -1090,7 +1090,7 @@ describe("widget desktop resize", () => {
     }
 
     const widget = await loadWidget()
-    ;(window as typeof window & { warpy: { registerComponents: (components: unknown[]) => void } }).warpy.registerComponents([
+    ;(window as typeof window & { appilot: { registerComponents: (components: unknown[]) => void } }).appilot.registerComponents([
       {
         key: "invoice_summary",
         version: "1",
@@ -1140,7 +1140,7 @@ describe("widget desktop resize", () => {
     }
 
     const widget = await loadWidget()
-    ;(window as typeof window & { warpy: { registerComponents: (components: unknown[]) => void } }).warpy.registerComponents([
+    ;(window as typeof window & { appilot: { registerComponents: (components: unknown[]) => void } }).appilot.registerComponents([
       {
         key: "invoice_summary",
         version: "1",
@@ -1190,7 +1190,7 @@ describe("widget desktop resize", () => {
     }
 
     const widget = await loadWidget()
-    ;(window as typeof window & { warpy: { registerComponents: (components: unknown[]) => void } }).warpy.registerComponents([
+    ;(window as typeof window & { appilot: { registerComponents: (components: unknown[]) => void } }).appilot.registerComponents([
       {
         key: "invoice_summary",
         version: "1",
@@ -1241,7 +1241,7 @@ describe("widget desktop resize", () => {
     }
 
     const widget = await loadWidget()
-    ;(window as typeof window & { warpy: { registerComponents: (components: unknown[]) => void } }).warpy.registerComponents([
+    ;(window as typeof window & { appilot: { registerComponents: (components: unknown[]) => void } }).appilot.registerComponents([
       {
         key: "invoice_summary",
         version: "1",
@@ -1300,7 +1300,7 @@ describe("widget desktop resize", () => {
     }
 
     const widget = await loadWidget()
-    ;(window as typeof window & { warpy: { registerComponents: (components: unknown[]) => void } }).warpy.registerComponents([
+    ;(window as typeof window & { appilot: { registerComponents: (components: unknown[]) => void } }).appilot.registerComponents([
       {
         key: "invoice_summary",
         version: "1",
@@ -1439,7 +1439,7 @@ describe("widget desktop resize", () => {
               role: "assistant",
               content: "Fallback summary.",
               renderPayload: {
-                kind: "warpy_components",
+                kind: "appilot_components",
                 version: 1,
                 markdownFallback: "Fallback summary.",
                 tree: [{ component: "unknown", props: {} }]
@@ -1709,7 +1709,7 @@ describe("widget desktop resize", () => {
 
     ;(global.fetch as jest.Mock).mockImplementation(async (input) => {
       const url = String(input)
-      expect(url).toBe(`https://api.warpy.ai/widget/config/${AGENT_ID}`)
+      expect(url).toBe(`https://api.appilot.ai/widget/config/${AGENT_ID}`)
       return createJsonResponse(config)
     })
 
@@ -1717,13 +1717,13 @@ describe("widget desktop resize", () => {
 
     await waitFor(() => {
       expect(global.fetch).toHaveBeenCalledWith(
-        `https://api.warpy.ai/widget/config/${AGENT_ID}`,
+        `https://api.appilot.ai/widget/config/${AGENT_ID}`,
         expect.any(Object)
       )
     })
   })
 
-  it("keeps Warpy widget routes on the local Warpy API when ENVIRONMENT is local", async () => {
+  it("keeps Appilot widget routes on the local Appilot API when ENVIRONMENT is local", async () => {
     const config = createConfig()
 
     ;(global.fetch as jest.Mock).mockImplementation(async (input) => {
@@ -1767,12 +1767,12 @@ describe("widget desktop resize", () => {
     })
   })
 
-  it("keeps production Warpy widget routes separate from a customer's local dashboard host", async () => {
+  it("keeps production Appilot widget routes separate from a customer's local dashboard host", async () => {
     const config = createConfig()
 
     ;(global.fetch as jest.Mock).mockImplementation(async (input) => {
       const url = String(input)
-      expect(url).toBe(`https://api.warpy.ai/widget/config/${AGENT_ID}`)
+      expect(url).toBe(`https://api.appilot.ai/widget/config/${AGENT_ID}`)
       return createJsonResponse(config)
     })
 
@@ -1780,7 +1780,7 @@ describe("widget desktop resize", () => {
 
     await waitFor(() => {
       expect(global.fetch).toHaveBeenCalledWith(
-        `https://api.warpy.ai/widget/config/${AGENT_ID}`,
+        `https://api.appilot.ai/widget/config/${AGENT_ID}`,
         expect.any(Object)
       )
     })
@@ -2023,12 +2023,12 @@ describe("widget desktop resize", () => {
     const frontendToolResponse = new Promise<{ ok: true }>((resolve) => {
       resolveFrontendTool = resolve
     })
-    const warpyHandler = jest.fn(async (toolName: string, vars: Record<string, unknown>) => {
+    const appilotHandler = jest.fn(async (toolName: string, vars: Record<string, unknown>) => {
       expect(toolName).toBe("open_drawer")
       expect(vars).toEqual({ drawer: "orders" })
       return frontendToolResponse
     })
-    ;(window as typeof window & { warpy?: unknown }).warpy = warpyHandler
+    ;(window as typeof window & { appilot?: unknown }).appilot = appilotHandler
 
     MockWebSocket.handler = (socket, message) => {
       const request = message.request || {}
@@ -2091,7 +2091,7 @@ describe("widget desktop resize", () => {
     resolveFrontendTool({ ok: true })
 
     await waitFor(() => {
-      expect(warpyHandler).toHaveBeenCalledTimes(1)
+      expect(appilotHandler).toHaveBeenCalledTimes(1)
       expect(shadowRoot.textContent).toContain("Drawer opened.")
     })
   })

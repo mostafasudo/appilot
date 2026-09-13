@@ -330,7 +330,7 @@ def create_backend_tool(
         description=snapshot.description,
         args_schema=InputModel
     )
-    structured_tool.metadata = {**(structured_tool.metadata or {}), "warpy_tool": snapshot.to_metadata()}
+    structured_tool.metadata = {**(structured_tool.metadata or {}), "appilot_tool": snapshot.to_metadata()}
     return structured_tool
 
 
@@ -348,7 +348,7 @@ def create_frontend_tool(tool: Tool | ToolSnapshot, schema_factory: SchemaFactor
         description=snapshot.description or "Run a frontend tool handler in the browser",
         args_schema=InputModel
     )
-    structured_tool.metadata = {**(structured_tool.metadata or {}), "warpy_tool": snapshot.to_metadata()}
+    structured_tool.metadata = {**(structured_tool.metadata or {}), "appilot_tool": snapshot.to_metadata()}
     return structured_tool
 
 
@@ -365,7 +365,7 @@ def create_mcp_tool(snapshot: McpToolSnapshot, schema_factory: SchemaFactory | N
         description=snapshot.description or f"Call MCP tool {snapshot.server_tool_name}",
         args_schema=InputModel,
     )
-    structured_tool.metadata = {**(structured_tool.metadata or {}), "warpy_tool": snapshot.to_metadata()}
+    structured_tool.metadata = {**(structured_tool.metadata or {}), "appilot_tool": snapshot.to_metadata()}
     return structured_tool
 
 

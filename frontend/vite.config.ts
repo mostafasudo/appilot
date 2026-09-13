@@ -4,7 +4,7 @@ import path from "node:path"
 import { fileURLToPath } from "node:url"
 import { defineConfig, loadEnv, type Plugin } from "vite"
 
-const WIDGET_ENVIRONMENT_TOKEN = "__WARPY_DASHBOARD_ENVIRONMENT__"
+const WIDGET_ENVIRONMENT_TOKEN = "__APPILOT_DASHBOARD_ENVIRONMENT__"
 const widgetScriptPath = fileURLToPath(new URL("./public/widget/agent.js", import.meta.url))
 
 const serializeWidgetEnvironment = (environment: string | undefined) =>
@@ -17,7 +17,7 @@ const widgetEnvironmentPlugin = (environment: string | undefined): Plugin => {
       .replaceAll(WIDGET_ENVIRONMENT_TOKEN, serializeWidgetEnvironment(environment))
 
   return {
-    name: "warpy-widget-environment",
+    name: "appilot-widget-environment",
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
         const pathname = req.url?.split("?")[0]

@@ -8,7 +8,7 @@ from uuid import UUID
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
-WidgetResponseMode = Literal["markdown", "warpy_components", "native_components"]
+WidgetResponseMode = Literal["markdown", "appilot_components", "native_components"]
 WidgetNativeFramework = Literal["react", "vue", "angular", "svelte", "vanilla", "script"]
 
 COMPONENT_KEY_PATTERN = re.compile(r"^[a-z][a-z0-9_]{1,63}$")
@@ -17,7 +17,7 @@ COMPONENT_KEY_PATTERN = re.compile(r"^[a-z][a-z0-9_]{1,63}$")
 class WidgetRenderPayload(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
 
-    kind: Literal["warpy_components", "native_components"]
+    kind: Literal["appilot_components", "native_components"]
     version: Literal[1] = 1
     markdown_fallback: str = Field(alias="markdownFallback", min_length=1)
     tree: Optional[List[Dict[str, Any]]] = None
@@ -27,8 +27,8 @@ class WidgetRenderPayload(BaseModel):
 
     @model_validator(mode="after")
     def validate_payload_shape(self) -> "WidgetRenderPayload":
-        if self.kind == "warpy_components" and not self.tree:
-            raise ValueError("Warpy component payloads require a tree.")
+        if self.kind == "appilot_components" and not self.tree:
+            raise ValueError("Appilot component payloads require a tree.")
         if self.kind == "native_components" and (not self.component_key or self.props is None):
             raise ValueError("Native component payloads require componentKey and props.")
         return self

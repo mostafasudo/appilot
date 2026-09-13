@@ -515,7 +515,7 @@ def test_run_step_handles_tool_metadata_without_valid_identifier(monkeypatch):
         description="backend_tool",
         args_schema=DummyArgs,
     )
-    invalid_tool.metadata = {"warpy_tool": {"toolType": "backend"}}
+    invalid_tool.metadata = {"appilot_tool": {"toolType": "backend"}}
 
     monkeypatch.setattr("app.services.agent_chain.create_find_tools_tool", lambda *_args, **_kwargs: build_tool("find_tools", "[]"))
     monkeypatch.setattr("app.services.agent_chain.get_agent_tools", lambda *_a, **_k: [invalid_tool])
@@ -824,7 +824,7 @@ def test_run_step_preserves_model_markdown_line_breaks(monkeypatch):
     assert result.response == "Here are the records:\n\n1. **Alpha**\n   - ID: 1\n   - Status: Open"
 
 
-def test_run_step_does_not_force_warpy_component_for_plain_text(monkeypatch):
+def test_run_step_does_not_force_appilot_component_for_plain_text(monkeypatch):
     responses = [
         AIMessage(
             content="Fetched 10 products with full details. I can format them as a table, JSON, or downloadable list next.",
@@ -839,7 +839,7 @@ def test_run_step_does_not_force_warpy_component_for_plain_text(monkeypatch):
         session=None,
         user_id="user",
         llm_client=llm,
-        widget_response_mode="warpy_components",
+        widget_response_mode="appilot_components",
     )
     result = asyncio.run(executor.run_step("get me 10 products show full details", []))
 

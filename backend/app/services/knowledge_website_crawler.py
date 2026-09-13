@@ -23,7 +23,7 @@ from .knowledge_website_service import (
 
 
 CRAWLER_TIMEOUT = httpx.Timeout(20.0, connect=5.0)
-CRAWLER_HEADERS = {"User-Agent": "WarpyBot/1.0 (+https://warpy.ai)"}
+CRAWLER_HEADERS = {"User-Agent": "AppilotBot/1.0 (+https://appilot.ai)"}
 BROWSER_FALLBACK_TEXT_THRESHOLD = 1200
 SITEMAP_PATHS = ("/sitemap.xml", "/sitemap_index.xml")
 SITEMAP_DOCUMENT_LIMIT = 16

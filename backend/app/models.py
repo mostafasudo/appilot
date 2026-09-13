@@ -283,10 +283,10 @@ class Agent(Base):
     widget_api_key_last4 = Column(Text, nullable=True)
     widget_auth_enabled_draft = Column(Boolean, nullable=True)
     widget_refresh_endpoint_path_draft = Column(Text, nullable=True)
-    widget_title = Column(Text, nullable=False, server_default="Warpy")
+    widget_title = Column(Text, nullable=False, server_default="Appilot")
     widget_icon_url = Column(Text, nullable=True)
     widget_appearance_mode = Column(Text, nullable=False, server_default="infer", default="infer")
-    widget_response_mode = Column(Text, nullable=False, server_default="warpy_components", default="warpy_components")
+    widget_response_mode = Column(Text, nullable=False, server_default="appilot_components", default="appilot_components")
     widget_theme = Column(json_type, nullable=True)
     widget_behavior = Column(Text, nullable=False, server_default="overlay", default="overlay")
     widget_empty_title = Column(Text, nullable=False, server_default="What would you like to do?")
@@ -295,7 +295,7 @@ class Agent(Base):
         nullable=False,
         server_default="Ask a question, request help, or describe what you want to get done.",
     )
-    widget_input_placeholder = Column(Text, nullable=False, server_default="Ask Warpy…")
+    widget_input_placeholder = Column(Text, nullable=False, server_default="Ask Appilot…")
     widget_suggestions_enabled = Column(Boolean, nullable=False, server_default=text("false"), default=False)
     widget_starter_suggestions = Column(json_type, nullable=False, server_default=text("'[]'"), default=list)
     widget_install_framework = Column(Text, nullable=False, server_default="react")

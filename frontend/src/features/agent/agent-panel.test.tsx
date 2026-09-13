@@ -156,15 +156,15 @@ const baseWidgetSecurity = {
 }
 
 const baseWidgetConfig = {
-  widgetTitle: "Warpy",
+  widgetTitle: "Appilot",
   widgetIconUrl: null,
   widgetAppearanceMode: "infer",
-  widgetResponseMode: "warpy_components",
+  widgetResponseMode: "appilot_components",
   widgetTheme: null,
   widgetBehavior: "overlay",
   widgetEmptyTitle: "What would you like to do?",
   widgetEmptyDescription: "Ask a question, request help, or describe what you want to get done.",
-  widgetInputPlaceholder: "Ask Warpy…",
+  widgetInputPlaceholder: "Ask Appilot…",
   widgetSuggestionsEnabled: false,
   widgetStarterSuggestions: [],
   widgetSecurityDisclosureEnabled: true
@@ -318,10 +318,10 @@ describe("AgentPanel", () => {
 
   it.each([
     ["script", "<script src="],
-    ["react", "@warpy-ai/widget/react"],
-    ["vue", "@warpy-ai/widget/vue"],
-    ["angular", "@warpy-ai/widget/angular"],
-    ["svelte", "@warpy-ai/widget/svelte"],
+    ["react", "@appilot-ai/widget/react"],
+    ["vue", "@appilot-ai/widget/vue"],
+    ["angular", "@appilot-ai/widget/angular"],
+    ["svelte", "@appilot-ai/widget/svelte"],
     ["vanilla", "mountWidget({"]
   ])("renders %s usage snippet", (framework, expected) => {
     renderPanelWithInstall({ framework, packageManager: "npm" })
@@ -345,9 +345,9 @@ describe("AgentPanel", () => {
   })
 
   it.each([
-    ["npm", "npm install @warpy-ai/widget"],
-    ["pnpm", "pnpm add @warpy-ai/widget"],
-    ["yarn", "yarn add @warpy-ai/widget"]
+    ["npm", "npm install @appilot-ai/widget"],
+    ["pnpm", "pnpm add @appilot-ai/widget"],
+    ["yarn", "yarn add @appilot-ai/widget"]
   ])("renders %s install command", (packageManager, expected) => {
     renderPanelWithInstall({ framework: "react", packageManager })
 
@@ -402,7 +402,7 @@ describe("AgentPanel", () => {
     render(<AgentPanel />, { wrapper: createWrapper() })
 
     await user.click(screen.getByRole("button", { name: /expand configure widget/i }))
-    expect(screen.getAllByText("Warpy components").length).toBeGreaterThan(0)
+    expect(screen.getAllByText("Appilot components").length).toBeGreaterThan(0)
     expect(screen.getByText("Recommended")).not.toBeNull()
 
     await user.click(screen.getByRole("button", { name: /native components/i }))
@@ -410,9 +410,9 @@ describe("AgentPanel", () => {
 
     expect(await screen.findByRole("heading", { name: "Connect native components" })).not.toBeNull()
     expect(screen.getByTestId("native-components-api-guidance").textContent).toContain(
-      "Use /widget-components through the Warpy API to add, update, or remove components."
+      "Use /widget-components through the Appilot API to add, update, or remove components."
     )
-    expect(screen.getByTestId("native-components-snippet").textContent).toContain("@warpy-ai/widget/react")
+    expect(screen.getByTestId("native-components-snippet").textContent).toContain("@appilot-ai/widget/react")
     expect(screen.getByTestId("copy-native-components-snippet-button")).not.toBeNull()
     await user.keyboard("{Escape}")
     await user.click(screen.getByRole("button", { name: /save changes/i }))
@@ -906,7 +906,7 @@ describe("AgentPanel", () => {
     await user.click(screen.getByRole("button", { name: /restore defaults/i }))
     expect(screen.queryByText("Unsaved")).toBeNull()
     expect(screen.getByText("Infer from page", { selector: "div" })).not.toBeNull()
-    expect((screen.getByLabelText("Widget name") as HTMLInputElement).value).toBe("Warpy")
+    expect((screen.getByLabelText("Widget name") as HTMLInputElement).value).toBe("Appilot")
 
     await user.clear(screen.getByLabelText("Widget name"))
     await user.type(screen.getByLabelText("Widget name"), "Acme Assistant")
@@ -914,7 +914,7 @@ describe("AgentPanel", () => {
 
     await user.click(screen.getByRole("button", { name: /discard changes/i }))
     expect(screen.queryByText("Unsaved")).toBeNull()
-    expect((screen.getByLabelText("Widget name") as HTMLInputElement).value).toBe("Warpy")
+    expect((screen.getByLabelText("Widget name") as HTMLInputElement).value).toBe("Appilot")
   })
 
   it("switches icon mode and saves icon URL", async () => {
@@ -1164,7 +1164,7 @@ describe("AgentPanel", () => {
 
     await openAdvancedSecurity(user)
     expect(await screen.findByDisplayValue("••••••••••••9999")).not.toBeNull()
-    expect(screen.queryByText("Shared across Warpy")).toBeNull()
+    expect(screen.queryByText("Shared across Appilot")).toBeNull()
     await user.click(screen.getByRole("button", { name: /manage in api config/i }))
     expect(useNavigationStore.getState().section).toBe("api")
   })

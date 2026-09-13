@@ -39,7 +39,7 @@ export const SignedOutCard = () => (
             <Badge variant="secondary" className="w-fit">
               Jarvis for your dashboard.
             </Badge>
-            <h1 className="text-3xl font-semibold tracking-tight">Warpy</h1>
+            <h1 className="text-3xl font-semibold tracking-tight">Appilot</h1>
             <p className="max-w-md text-muted-foreground">
               Embeddable agent widget for dashboards. Turn intent into authenticated UI and API actions.
             </p>
@@ -62,10 +62,10 @@ export const SignedOutCard = () => (
         <div className="w-full max-w-md rounded-2xl border border-border bg-card/75 p-8 shadow-sm backdrop-blur">
           <div className="mb-6 flex items-start justify-between gap-4">
             <div className="space-y-2">
-              <h1 className="text-xl font-semibold md:hidden">Warpy</h1>
+              <h1 className="text-xl font-semibold md:hidden">Appilot</h1>
               <h1 className="hidden text-xl font-semibold md:block">Sign in</h1>
               <p className="text-sm text-muted-foreground md:hidden">Jarvis for your dashboard.</p>
-              <p className="hidden text-sm text-muted-foreground md:block">Continue to your Warpy dashboard.</p>
+              <p className="hidden text-sm text-muted-foreground md:block">Continue to your Appilot dashboard.</p>
             </div>
             <ThemeToggle />
           </div>

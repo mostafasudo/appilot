@@ -34,7 +34,7 @@ export class WidgetComponent {
   }
 }
 
-Component({ selector: "warpy-widget", template: "" })(WidgetComponent)
+Component({ selector: "appilot-widget", template: "" })(WidgetComponent)
 Input()(WidgetComponent.prototype, "agentId")
 Input()(WidgetComponent.prototype, "baseUrl")
 Input()(WidgetComponent.prototype, "scriptSrc")

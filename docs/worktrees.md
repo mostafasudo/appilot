@@ -32,7 +32,7 @@ All commands accept optional indices: `pnpm worktree start 1`, `pnpm worktree st
 
 ## Configuration
 
-Warpy-specific config lives in `.wtcrc.json`:
+Appilot-specific config lives in `.wtcrc.json`:
 
 ```json
 {

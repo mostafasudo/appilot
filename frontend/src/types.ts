@@ -183,11 +183,11 @@ export type ApiKeyRevealResponse = {
 
 export type WidgetBehavior = "overlay" | "push";
 export type WidgetAppearanceMode = "infer" | "custom";
-export type WidgetResponseMode = "markdown" | "warpy_components" | "native_components";
+export type WidgetResponseMode = "markdown" | "appilot_components" | "native_components";
 
 export type WidgetRenderPayload =
   | {
-      kind: "warpy_components";
+      kind: "appilot_components";
       version: 1;
       markdownFallback: string;
       tree: Array<{ component: string; props: Record<string, unknown> }>;

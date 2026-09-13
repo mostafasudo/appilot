@@ -175,15 +175,15 @@ def test_agent_widget_config_get_and_update(client: TestClient):
     fetched = client.get("/agent/widget-config", headers=auth_headers())
     assert fetched.status_code == 200
     body = fetched.json()
-    assert body["widgetTitle"] == "Warpy"
+    assert body["widgetTitle"] == "Appilot"
     assert body["widgetIconUrl"] is None
     assert body["widgetAppearanceMode"] == "infer"
-    assert body["widgetResponseMode"] == "warpy_components"
+    assert body["widgetResponseMode"] == "appilot_components"
     assert body["widgetTheme"] is None
     assert body["widgetBehavior"] == "overlay"
     assert body["widgetEmptyTitle"] == "What would you like to do?"
     assert body["widgetEmptyDescription"] == "Ask a question, request help, or describe what you want to get done."
-    assert body["widgetInputPlaceholder"] == "Ask Warpy…"
+    assert body["widgetInputPlaceholder"] == "Ask Appilot…"
     assert body["widgetSuggestionsEnabled"] is False
     assert body["widgetStarterSuggestions"] == []
 

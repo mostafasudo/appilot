@@ -1,14 +1,14 @@
-const PREVIEW_UPDATE_EVENT = "warpy:preview:update";
+const PREVIEW_UPDATE_EVENT = "appilot:preview:update";
 
 const defaultConfig = {
-  widgetTitle: "Warpy",
+  widgetTitle: "Appilot",
   widgetIconUrl: null,
   widgetAppearanceMode: "custom",
   widgetTheme: null,
   widgetBehavior: "overlay",
   widgetEmptyTitle: "What would you like to do?",
   widgetEmptyDescription: "Ask a question, request help, or describe what you want to get done.",
-  widgetInputPlaceholder: "Ask Warpy…",
+  widgetInputPlaceholder: "Ask Appilot…",
   widgetSuggestionsEnabled: true,
   widgetStarterSuggestions: ["Show recent invoices", "Create a refund", "Summarize approvals"],
   securityDisclosureEnabled: true,
@@ -33,7 +33,7 @@ const previewBootstrap = {
   colorScheme: "light",
 };
 
-window.__WARPY_WIDGET_PREVIEW__ = previewBootstrap;
+window.__APPILOT_WIDGET_PREVIEW__ = previewBootstrap;
 
 function applyPreviewScheme() {
   document.documentElement.dataset.previewScheme = previewBootstrap.colorScheme === "dark" ? "dark" : "light";
@@ -45,7 +45,7 @@ function dispatchPreviewUpdate(detail) {
 
 window.addEventListener("message", (event) => {
   const payload = event.data;
-  if (!payload || payload.type !== "warpy-widget-preview:update") return;
+  if (!payload || payload.type !== "appilot-widget-preview:update") return;
 
   if (payload.config && typeof payload.config === "object") {
     previewBootstrap.remoteConfig = payload.config;

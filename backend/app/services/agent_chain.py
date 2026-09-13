@@ -250,7 +250,7 @@ class AgentExecutor:
         if tool is None:
             return None
         metadata = getattr(tool, "metadata", None) or {}
-        raw = metadata.get("warpy_tool")
+        raw = metadata.get("appilot_tool")
         return raw if isinstance(raw, dict) else None
 
     def set_mcp_auth_bundles(self, bundles: dict[str, dict[str, Any]] | None) -> None:

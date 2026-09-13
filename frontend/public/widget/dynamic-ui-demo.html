@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Warpy Dynamic UI Demo</title>
+    <title>Appilot Dynamic UI Demo</title>
     <style>
       :root {
         color-scheme: light;
@@ -85,11 +85,11 @@
         <h1>Dynamic Widget UI</h1>
         <p>
           Use the controls below to switch the same widget preview between markdown,
-          Warpy components, and native component fallback mode.
+          Appilot components, and native component fallback mode.
         </p>
         <div class="modes" aria-label="Widget response mode">
           <button type="button" data-mode="markdown">Markdown</button>
-          <button type="button" data-mode="warpy_components">Warpy components</button>
+          <button type="button" data-mode="appilot_components">Appilot components</button>
           <button type="button" data-mode="native_components">Native components</button>
         </div>
         <div class="panel">
@@ -103,7 +103,7 @@
       const remoteConfig = {
         agentId: "preview-agent",
         widgetAppearanceMode: "custom",
-        widgetResponseMode: "warpy_components",
+        widgetResponseMode: "appilot_components",
         widgetTitle: "Assistant",
         widgetBehavior: "overlay",
         widgetEmptyTitle: "What would you like to do?",
@@ -114,7 +114,7 @@
         securityDisclosureEnabled: true
       }
 
-      window.__WARPY_WIDGET_PREVIEW__ = {
+      window.__APPILOT_WIDGET_PREVIEW__ = {
         enabled: true,
         config: { agentId: "preview-agent", baseUrl: "" },
         remoteConfig,
@@ -126,7 +126,7 @@
       const updateMode = (mode) => {
         remoteConfig.widgetResponseMode = mode
         buttons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.mode === mode)))
-        window.dispatchEvent(new CustomEvent("warpy:preview:update", {
+        window.dispatchEvent(new CustomEvent("appilot:preview:update", {
           detail: {
             config: remoteConfig,
             previewColorScheme: "light",
@@ -138,7 +138,7 @@
       buttons.forEach((button) => {
         button.addEventListener("click", () => updateMode(button.dataset.mode))
       })
-      updateMode("warpy_components")
+      updateMode("appilot_components")
     </script>
     <script src="/widget/agent.js" data-agent-id="preview-agent"></script>
   </body>

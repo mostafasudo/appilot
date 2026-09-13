@@ -65,7 +65,7 @@ describe("ApiKeyPanel", () => {
 
   it("renders the masked api key", () => {
     render(<ApiKeyPanel />)
-    expect(screen.getByText("Use this key to control Warpy via agents.")).not.toBeNull()
+    expect(screen.getByText("Use this key to control Appilot via agents.")).not.toBeNull()
     expect(screen.getByDisplayValue("••••••••••••1234")).not.toBeNull()
     expect(screen.queryByText("Public agent manual")).toBeNull()
     expect(screen.queryByRole("button", { name: /copy prompt/i })).toBeNull()

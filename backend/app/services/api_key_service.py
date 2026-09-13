@@ -34,7 +34,7 @@ def hash_api_key(api_key: str) -> str:
     return hashlib.sha256(api_key.encode("utf-8")).hexdigest()
 
 
-def is_warpy_api_key(token: str) -> bool:
+def is_appilot_api_key(token: str) -> bool:
     return token.startswith(API_KEY_PREFIX)
 
 

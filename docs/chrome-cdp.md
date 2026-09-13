@@ -71,7 +71,7 @@ CDP input events such as `clickxy` take CSS pixels, not screenshot image pixels.
 
 The direct `scripts/cdp.mjs` path is preferred because it holds one long-lived browser connection open and minimizes repeat approvals.
 
-If an agent requires MCP, use Chrome's official attach flow with `chrome-devtools-mcp --autoConnect`. Repo-local Cursor config already points to it in [`.cursor/mcp.json`](/Users/levw/Desktop/Levw/warpy/.cursor/mcp.json).
+If an agent requires MCP, use Chrome's official attach flow with `chrome-devtools-mcp --autoConnect`. Repo-local Cursor config already points to it in [`.cursor/mcp.json`](/Users/levw/Desktop/Levw/appilot/.cursor/mcp.json).
 
 Before using MCP:
 

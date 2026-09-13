@@ -25,13 +25,13 @@ export const Widget = ({ agentId, baseUrl, scriptSrc, containerId, components })
   useEffect(() => {
     if (typeof window === "undefined") return
     if (!Array.isArray(normalizedComponentsRef.current)) return
-    if (window.warpy && typeof window.warpy.registerComponents === "function") {
-      window.warpy.registerComponents(normalizedComponentsRef.current)
+    if (window.appilot && typeof window.appilot.registerComponents === "function") {
+      window.appilot.registerComponents(normalizedComponentsRef.current)
       return
     }
-    const script = document.querySelector('script[data-warpy-widget-script="true"]')
+    const script = document.querySelector('script[data-appilot-widget-script="true"]')
     if (script) {
-      script.__warpyComponents = normalizedComponentsRef.current
+      script.__appilotComponents = normalizedComponentsRef.current
     }
   }, [components])
 

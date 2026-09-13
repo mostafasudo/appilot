@@ -12,7 +12,7 @@ from .config import get_settings
 from .logger import log_error
 from .database import get_session
 from ..schemas.auth import ClerkSession, DashboardPrincipal
-from ..services.api_key_service import get_user_api_key_by_secret, is_warpy_api_key
+from ..services.api_key_service import get_user_api_key_by_secret, is_appilot_api_key
 
 bearer_scheme = HTTPBearer(auto_error=False)
 
@@ -95,7 +95,7 @@ async def require_dashboard_principal(
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized")
 
     token = credentials.credentials
-    if is_warpy_api_key(token):
+    if is_appilot_api_key(token):
         api_key = get_user_api_key_by_secret(session, token)
         if api_key is None:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized")

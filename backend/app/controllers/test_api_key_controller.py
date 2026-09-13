@@ -70,7 +70,7 @@ def test_api_key_is_auto_created_and_can_be_revealed_and_rotated(client: TestCli
     assert rotated_body["rotatedAt"] is not None
 
 
-def test_dashboard_routes_accept_warpy_api_key(client: TestClient):
+def test_dashboard_routes_accept_appilot_api_key(client: TestClient):
     create_agent = client.post("/agent", headers=auth_headers())
     assert create_agent.status_code == 201
 
@@ -90,6 +90,6 @@ def test_dashboard_routes_accept_warpy_api_key(client: TestClient):
     assert client.get("/onboarding/state", headers=key_headers).status_code == 200
 
 
-def test_invalid_warpy_api_key_is_rejected(client: TestClient):
+def test_invalid_appilot_api_key_is_rejected(client: TestClient):
     response = client.get("/config", headers={"Authorization": "Bearer wrk_invalid"})
     assert response.status_code == 401

@@ -100,9 +100,9 @@ def _normalize_widget_appearance_mode(value: str | None) -> str:
 
 
 def _normalize_widget_response_mode(value: str | None) -> str:
-    if value in {"markdown", "warpy_components", "native_components"}:
+    if value in {"markdown", "appilot_components", "native_components"}:
         return value
-    return "warpy_components"
+    return "appilot_components"
 
 
 def _normalize_widget_starter_suggestions(value: object) -> list[str]:

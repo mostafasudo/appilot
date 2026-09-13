@@ -1,6 +1,6 @@
 import pytest
 
-from app.services.api_key_service import decrypt_api_key, encrypt_api_key, generate_api_key, hash_api_key, is_warpy_api_key
+from app.services.api_key_service import decrypt_api_key, encrypt_api_key, generate_api_key, hash_api_key, is_appilot_api_key
 
 
 @pytest.fixture(autouse=True)
@@ -32,6 +32,6 @@ def test_encrypt_and_decrypt_api_key_round_trip():
     assert decrypt_api_key(ciphertext) == api_key
 
 
-def test_is_warpy_api_key_detects_prefix():
-    assert is_warpy_api_key("wrk_test")
-    assert not is_warpy_api_key("token")
+def test_is_appilot_api_key_detects_prefix():
+    assert is_appilot_api_key("wrk_test")
+    assert not is_appilot_api_key("token")

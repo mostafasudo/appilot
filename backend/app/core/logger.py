@@ -15,7 +15,7 @@ class AppLogger:
 
     @classmethod
     def _setup_logger(cls) -> logging.Logger:
-        logger = logging.getLogger("warpy")
+        logger = logging.getLogger("appilot")
         logger.setLevel(logging.INFO)
         logger.propagate = False
 

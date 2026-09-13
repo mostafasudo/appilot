@@ -328,12 +328,12 @@ const FeatureCard = ({
                     title={
                       (tool.toolType ?? "backend") === "backend"
                         ? (tool.path ?? "/")
-                        : `window.warpy('${tool.tool.function.name}', vars)`
+                        : `window.appilot('${tool.tool.function.name}', vars)`
                     }
                   >
                     {(tool.toolType ?? "backend") === "backend"
                       ? (tool.path ?? "/")
-                      : `window.warpy('${tool.tool.function.name}', vars)`}
+                      : `window.appilot('${tool.tool.function.name}', vars)`}
                   </div>
                 </div>
                 <div

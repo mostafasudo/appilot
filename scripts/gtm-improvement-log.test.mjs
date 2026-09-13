@@ -15,7 +15,7 @@ function tempState() {
 }
 
 const basePayload = {
-  source_automation: 'warpy-gtm-task-executor',
+  source_automation: 'appilot-gtm-task-executor',
   run_id: '2026-05-15T10:00:00Z',
   category: 'bug',
   priority: 'p2',
@@ -26,7 +26,7 @@ const basePayload = {
   impact_on_goal: 'Completion drift leaves safe work stuck and can make later autonomous task runs spend time on stale work instead of interested-lead generation.',
   suggested_fix: 'Add a targeted completion-only retry path that bypasses copy validation but cannot send a second message.',
   evidence: ['task 123 completion_pending in task-action-ledger.jsonl'],
-  artifact_paths: ['/Users/levw/.codex/state/warpy-gtm/task-executor-runs/example.json'],
+  artifact_paths: ['/Users/levw/.codex/state/appilot-gtm/task-executor-runs/example.json'],
 };
 
 test('add records a high-confidence improvement note and report returns it', () => {

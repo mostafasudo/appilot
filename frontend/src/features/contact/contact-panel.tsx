@@ -3,7 +3,7 @@ import { Calendar, Mail } from "lucide-react"
 import { PanelShell } from "@/components/panel-shell"
 import { Button } from "@/components/ui/button"
 
-const supportEmail = "abdel@warpy.ai"
+const supportEmail = "abdel@appilot.ai"
 const discordUrl = "https://discord.gg/JPjYjPdGD2"
 const bookCallUrl = "https://cal.com/levwtech"
 

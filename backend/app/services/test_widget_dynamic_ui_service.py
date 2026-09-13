@@ -176,41 +176,41 @@ def test_format_widget_markdown_response_fences_json_when_user_requested_json():
     assert formatted.endswith("```")
 
 
-def test_build_warpy_render_payload_for_bullets():
+def test_build_appilot_render_payload_for_bullets():
     payload = build_widget_render_payload(
         "Here are the issues:\n- Two invoices are overdue\n- One refund needs approval",
-        "warpy_components",
+        "appilot_components",
     )
 
     assert payload is not None
-    assert payload["kind"] == "warpy_components"
+    assert payload["kind"] == "appilot_components"
     assert payload["markdownFallback"].startswith("Here are the issues")
     assert payload["tree"][0]["component"] == "summary_card"
     assert payload["tree"][1]["component"] == "status_list"
 
 
-def test_build_warpy_render_payload_falls_back_for_plain_status_text():
+def test_build_appilot_render_payload_falls_back_for_plain_status_text():
     markdown = "Fetched 10 products with full details. I can format them as a table, JSON, or downloadable list next."
 
-    assert build_widget_render_payload(markdown, "warpy_components") is None
+    assert build_widget_render_payload(markdown, "appilot_components") is None
 
 
-def test_build_warpy_render_payload_falls_back_for_oversized_table():
+def test_build_appilot_render_payload_falls_back_for_oversized_table():
     markdown = "| A | B | C | D | E |\n| --- | --- | --- | --- | --- |\n| 1 | 2 | 3 | 4 | 5 |"
 
-    assert build_widget_render_payload(markdown, "warpy_components") is None
+    assert build_widget_render_payload(markdown, "appilot_components") is None
 
 
-def test_build_warpy_render_payload_falls_back_for_table_with_surrounding_text():
+def test_build_appilot_render_payload_falls_back_for_table_with_surrounding_text():
     markdown = "Review this before approving.\n\n| Name | Amount |\n| --- | --- |\n| Acme | $8.2k |\n\nAcme should go first."
 
-    assert build_widget_render_payload(markdown, "warpy_components") is None
+    assert build_widget_render_payload(markdown, "appilot_components") is None
 
 
-def test_build_warpy_render_payload_falls_back_without_truncating_long_content():
+def test_build_appilot_render_payload_falls_back_without_truncating_long_content():
     markdown = " ".join(["This detailed update must stay complete."] * 20)
 
-    assert build_widget_render_payload(markdown, "warpy_components") is None
+    assert build_widget_render_payload(markdown, "appilot_components") is None
 
 
 def test_build_native_payload_uses_suitable_string_props():

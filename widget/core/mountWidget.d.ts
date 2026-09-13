@@ -1,14 +1,14 @@
-export type WarpyRenderCleanup = () => void
-export type WarpyRenderResult = Node | string | void | WarpyRenderCleanup
+export type AppilotRenderCleanup = () => void
+export type AppilotRenderResult = Node | string | void | AppilotRenderCleanup
 
-export type WarpyOutputComponent = {
+export type AppilotOutputComponent = {
   key: string
   version?: string
   render: (context: {
     mount: HTMLElement
     props: Record<string, unknown>
     markdownFallback: string
-  }) => WarpyRenderResult | Promise<WarpyRenderResult>
+  }) => AppilotRenderResult | Promise<AppilotRenderResult>
 }
 
 export type MountWidgetOptions = {
@@ -16,7 +16,7 @@ export type MountWidgetOptions = {
   baseUrl?: string
   scriptSrc: string
   containerId?: string
-  components?: WarpyOutputComponent[]
+  components?: AppilotOutputComponent[]
 }
 
 export type MountedWidget = {

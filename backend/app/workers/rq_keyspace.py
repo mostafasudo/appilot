@@ -2,7 +2,7 @@
 RQ runs multi-key Redis pipelines/transactions (worker registration, registries, etc).
 ElastiCache Serverless / Redis Cluster rejects multi-key ops when keys hash to different slots.
 
-This module patches RQ's internal key prefixes to include a Redis Cluster hash-tag (default `{warpy}`)
+This module patches RQ's internal key prefixes to include a Redis Cluster hash-tag (default `{appilot}`)
 so all RQ keys land in the same slot and those pipelines succeed. Call this before creating any
 `rq.Queue` / `rq.Worker` / `rq.Job` objects. Configure via `RQ_REDIS_HASH_TAG`.
 """
@@ -11,7 +11,7 @@ import os
 
 
 def configure_rq_keyspace() -> None:
-    hash_tag = os.getenv("RQ_REDIS_HASH_TAG", "warpy").strip()
+    hash_tag = os.getenv("RQ_REDIS_HASH_TAG", "appilot").strip()
     prefix = f"{{{hash_tag}}}"
     format_prefix = f"{{{{{hash_tag}}}}}"
 

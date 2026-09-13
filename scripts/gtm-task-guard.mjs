@@ -17,14 +17,14 @@ const OUTBOUND_FAMILIES = new Set([
   'x_touch',
   'other_outbound',
 ]);
-const DEFAULT_STATE_DIR = resolve(homedir(), '.codex/state/warpy-gtm');
+const DEFAULT_STATE_DIR = resolve(homedir(), '.codex/state/appilot-gtm');
 const INDEX_FILE = 'task-guard-index.json';
 const CLAIM_DIR = 'task-guard-claims';
 const NO_COPY_MODES = new Set(['linkedin_like_only', 'blank_connection_request']);
 const MESSAGE_FAMILIES = new Set(['email', 'linkedin_dm', 'x_touch', 'other_outbound']);
 const UNRESOLVED_PLACEHOLDER_PATTERN = /(\[(?:first name|last name|trigger|company|company name|title|persona|pain|proof|workflow|observation)\]|\{\{\s*[^}]+\s*\}\})/i;
 const INTERNAL_SOURCE_LABEL_PATTERN = /\b(?:apollo profile|amplemarket|structured amplemarket|duo crow competitor|duo saas event|duo copilot|crow competitor)\b/i;
-const INSIDER_WARPY_POSITIONING_PATTERNS = [
+const INSIDER_APPILOT_POSITIONING_PATTERNS = [
   /\bapproved\s+(?:step|steps|action|actions|workflow|workflows)\b/i,
   /\busing\s+only\s+approved\s+actions\b/i,
   /\bseparate\s+bot\b/i,
@@ -66,7 +66,7 @@ const STATIC_TEMPLATE_PHRASE_SETS = [
   [
     'noticed a pattern in complex b2b dashboards',
     'users still miss key workflows and support keeps getting the same how do i do this tickets',
-    'warpy adds an in product ai assistant so users can ask for help in plain english',
+    'appilot adds an in product ai assistant so users can ask for help in plain english',
   ],
   [
     'when users cannot find the right feature or workflow',
@@ -238,7 +238,7 @@ function collectEvidenceValues(value) {
     'customer_problem',
     'generated_at',
     'fresh_until',
-    'recipient_safe_warpy_bridge',
+    'recipient_safe_appilot_bridge',
   ]);
   return [
     value.personalization_evidence,
@@ -304,8 +304,8 @@ function hasStaticTemplateCopy(copy) {
   return STATIC_TEMPLATE_PHRASE_SETS.some((phrases) => phrases.every((phrase) => normalized.includes(phrase)));
 }
 
-function hasInsiderWarpyPositioning(copy) {
-  return INSIDER_WARPY_POSITIONING_PATTERNS.some((pattern) => pattern.test(copy));
+function hasInsiderAppilotPositioning(copy) {
+  return INSIDER_APPILOT_POSITIONING_PATTERNS.some((pattern) => pattern.test(copy));
 }
 
 function validateCopyQuality(payload, keyInfo) {
@@ -346,8 +346,8 @@ function validateCopyQuality(payload, keyInfo) {
     return { reason: 'static_apollo_template_copy' };
   }
 
-  if (hasInsiderWarpyPositioning(combined)) {
-    return { reason: 'insider_warpy_positioning_in_copy' };
+  if (hasInsiderAppilotPositioning(combined)) {
+    return { reason: 'insider_appilot_positioning_in_copy' };
   }
 
   if (extractPersonalizationEvidence(payload).length === 0) {
@@ -363,7 +363,7 @@ function auditCopyQuality(record) {
   if (UNRESOLVED_PLACEHOLDER_PATTERN.test(combined)) return { reason: 'unresolved_copy_placeholder' };
   if (INTERNAL_SOURCE_LABEL_PATTERN.test(combined)) return { reason: 'internal_source_label_in_copy' };
   if (hasStaticTemplateCopy(combined)) return { reason: 'static_apollo_template_copy' };
-  if (hasInsiderWarpyPositioning(combined)) return { reason: 'insider_warpy_positioning_in_copy' };
+  if (hasInsiderAppilotPositioning(combined)) return { reason: 'insider_appilot_positioning_in_copy' };
   return null;
 }
 

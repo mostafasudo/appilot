@@ -40,10 +40,10 @@ class WidgetConfigResponse(BaseModel):
     actions_remaining: int = Field(default=0, alias="actionsRemaining")
     require_signed_widget_token: bool = Field(default=False, alias="requireSignedWidgetToken")
     widget_refresh_endpoint_path: str = Field(default="/widget-token", alias="widgetRefreshEndpointPath")
-    widget_title: str = Field(default="Warpy", alias="widgetTitle")
+    widget_title: str = Field(default="Appilot", alias="widgetTitle")
     widget_icon_url: str | None = Field(default=None, alias="widgetIconUrl")
     widget_appearance_mode: Literal["infer", "custom"] = Field(default="infer", alias="widgetAppearanceMode")
-    widget_response_mode: WidgetResponseMode = Field(default="warpy_components", alias="widgetResponseMode")
+    widget_response_mode: WidgetResponseMode = Field(default="appilot_components", alias="widgetResponseMode")
     widget_theme: WidgetTheme | None = Field(default=None, alias="widgetTheme")
     widget_behavior: Literal["overlay", "push"] = Field(default="overlay", alias="widgetBehavior")
     widget_empty_title: str = Field(default="What would you like to do?", alias="widgetEmptyTitle")
@@ -51,7 +51,7 @@ class WidgetConfigResponse(BaseModel):
         default="Ask a question, request help, or describe what you want to get done.",
         alias="widgetEmptyDescription",
     )
-    widget_input_placeholder: str = Field(default="Ask Warpy…", alias="widgetInputPlaceholder")
+    widget_input_placeholder: str = Field(default="Ask Appilot…", alias="widgetInputPlaceholder")
     widget_suggestions_enabled: bool = Field(default=False, alias="widgetSuggestionsEnabled")
     widget_starter_suggestions: list[str] = Field(
         default_factory=list,

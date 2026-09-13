@@ -18,7 +18,7 @@ depends_on = None
 def upgrade() -> None:
     op.add_column(
         "agents",
-        sa.Column("widget_title", sa.Text(), nullable=False, server_default=sa.text("'Warpy'")),
+        sa.Column("widget_title", sa.Text(), nullable=False, server_default=sa.text("'Appilot'")),
     )
     op.add_column(
         "agents",
@@ -43,7 +43,7 @@ def upgrade() -> None:
     )
     op.add_column(
         "agents",
-        sa.Column("widget_input_placeholder", sa.Text(), nullable=False, server_default=sa.text("'Ask Warpy…'")),
+        sa.Column("widget_input_placeholder", sa.Text(), nullable=False, server_default=sa.text("'Ask Appilot…'")),
     )
 
 

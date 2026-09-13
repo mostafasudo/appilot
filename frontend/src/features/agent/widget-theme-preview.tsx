@@ -44,7 +44,7 @@ export const WidgetThemePreview = ({
 
   const previewPayload = useMemo(
     () => ({
-      type: "warpy-widget-preview:update",
+      type: "appilot-widget-preview:update",
       config: draftConfig,
       previewColorScheme: previewVariant,
     }),
@@ -56,12 +56,12 @@ export const WidgetThemePreview = ({
       if (event.source !== iframeRef.current?.contentWindow) return
       const payload = event.data
       if (!payload || typeof payload !== "object") return
-      if (payload.type === "warpy-widget-preview:ready") {
+      if (payload.type === "appilot-widget-preview:ready") {
         readyRef.current = true
         iframeRef.current?.contentWindow?.postMessage(previewPayload, window.location.origin)
         iframeRef.current?.contentWindow?.postMessage(
           {
-            type: "warpy-widget-preview:update",
+            type: "appilot-widget-preview:update",
             scene: previewScene,
           },
           window.location.origin,
@@ -71,7 +71,7 @@ export const WidgetThemePreview = ({
         }
         return
       }
-      if (payload.type === "warpy-widget-preview:stateSnapshot" || payload.type === "warpy-widget-preview:sceneChanged") {
+      if (payload.type === "appilot-widget-preview:stateSnapshot" || payload.type === "appilot-widget-preview:sceneChanged") {
         if (payload.snapshot && typeof payload.snapshot === "object") {
           setSnapshot(payload.snapshot as PreviewSnapshot)
         }
@@ -93,7 +93,7 @@ export const WidgetThemePreview = ({
     if (!readyRef.current) return
     iframeRef.current?.contentWindow?.postMessage(
       {
-        type: "warpy-widget-preview:update",
+        type: "appilot-widget-preview:update",
         scene: previewScene,
       },
       window.location.origin,

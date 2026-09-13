@@ -36,7 +36,7 @@ const validDuoPayload = {
   ...basePayload,
   contact_email: 'dbapna@arkieva.com',
   subject: 'quick breakdown',
-  body: 'deepak - noticed arkieva is focused on supply-chain planning workflows.\n\nthat feels like a dashboard where users know the planning job they need done, but not always the fastest path through scenarios, constraints, and updates.\n\nwarpy adds an in-product assistant so users can ask for that workflow in plain english and finish it inside the existing planning UI.\n\nworth a quick breakdown for arkieva?',
+  body: 'deepak - noticed arkieva is focused on supply-chain planning workflows.\n\nthat feels like a dashboard where users know the planning job they need done, but not always the fastest path through scenarios, constraints, and updates.\n\nappilot adds an in-product assistant so users can ask for that workflow in plain english and finish it inside the existing planning UI.\n\nworth a quick breakdown for arkieva?',
   personalization_packet: {
     core_idea: 'dashboard users should move from intent to real planning work inside the existing product',
     lead_specific_observation: 'Arkieva focuses on supply-chain planning workflows for operations teams.',
@@ -45,7 +45,7 @@ const validDuoPayload = {
     why_this_company: 'Arkieva sells workflow-heavy planning software where dashboard depth is part of the product value',
     specific_dashboard_workflow: 'scenario planning and work order update flows',
     proof_workflow: 'ask for planning updates in plain english and finish the workflow in the existing UI',
-    recipient_safe_warpy_bridge: 'an in-product assistant where users ask in chat and complete planning workflows through configured tools or screen autopilot in the existing UI',
+    recipient_safe_appilot_bridge: 'an in-product assistant where users ask in chat and complete planning workflows through configured tools or screen autopilot in the existing UI',
     copy_source: 'duo_rewritten',
   },
 };
@@ -101,7 +101,7 @@ test('claim blocks static Apollo template copy even when placeholders are absent
       ledgerPath: state.ledgerPath,
       payload: {
         ...basePayload,
-        body: 'victor - noticed your product.\n\nin complex dashboards, most users only use a small slice because they dont know what to do next or where to go.\n\nwarpy lets them ask in plain english and have the dashboard filter, navigate, and finish the workflow right there.\n\nwant me to send a quick breakdown for tonkean?',
+        body: 'victor - noticed your product.\n\nin complex dashboards, most users only use a small slice because they dont know what to do next or where to go.\n\nappilot lets them ask in plain english and have the dashboard filter, navigate, and finish the workflow right there.\n\nwant me to send a quick breakdown for tonkean?',
       },
     });
 
@@ -150,7 +150,7 @@ test('claim blocks current Apollo scaffold copy even without placeholders', () =
         ...basePayload,
         apollo_task_id: 'current-static-scaffold',
         subject: 'quick breakdown',
-        body: 'noticed a pattern in complex b2b dashboards.\n\nteams ship a lot of useful product depth, but users still miss key workflows and support keeps getting the same how do i do this tickets.\n\nwarpy adds an in-product ai assistant so users can ask for help in plain english and finish workflows in the app.\n\nworth sending a quick breakdown of where this could fit?',
+        body: 'noticed a pattern in complex b2b dashboards.\n\nteams ship a lot of useful product depth, but users still miss key workflows and support keeps getting the same how do i do this tickets.\n\nappilot adds an in-product ai assistant so users can ask for help in plain english and finish workflows in the app.\n\nworth sending a quick breakdown of where this could fit?',
         lead_specific_observation: 'Acme has a complex dashboard.',
       },
     });
@@ -162,7 +162,7 @@ test('claim blocks current Apollo scaffold copy even without placeholders', () =
   }
 });
 
-test('claim blocks insider Warpy positioning even when copy is personalized', () => {
+test('claim blocks insider Appilot positioning even when copy is personalized', () => {
   const state = tempState();
   try {
     writeLedger(state.ledgerPath, []);
@@ -182,7 +182,7 @@ test('claim blocks insider Warpy positioning even when copy is personalized', ()
     });
 
     assert.equal(result.decision, 'blocked');
-    assert.equal(result.reason, 'insider_warpy_positioning_in_copy');
+    assert.equal(result.reason, 'insider_appilot_positioning_in_copy');
   } finally {
     state.cleanup();
   }
@@ -275,7 +275,7 @@ test('claim accepts non-Duo researched personalized copy', () => {
           why_this_company: 'UpKeep is built around maintenance workflows for operations teams',
           specific_dashboard_workflow: 'work order update and reporting flows',
           proof_workflow: 'request work order updates in plain english and finish the workflow in the existing UI',
-          recipient_safe_warpy_bridge: 'an in-product assistant where users ask in chat and complete maintenance workflows through configured tools or screen autopilot in the existing UI',
+          recipient_safe_appilot_bridge: 'an in-product assistant where users ask in chat and complete maintenance workflows through configured tools or screen autopilot in the existing UI',
           copy_source: 'research_generated',
         },
       },
@@ -287,7 +287,7 @@ test('claim accepts non-Duo researched personalized copy', () => {
   }
 });
 
-test('claim accepts workflow-specific Warpy copy that passes recipient comprehension', () => {
+test('claim accepts workflow-specific Appilot copy that passes recipient comprehension', () => {
   const state = tempState();
   try {
     writeLedger(state.ledgerPath, []);
@@ -302,7 +302,7 @@ test('claim accepts workflow-specific Warpy copy that passes recipient comprehen
         subject: '',
         channel: 'linkedin',
         step_type: 'linkedin_dm',
-        body: 'thanks for connecting. noticed Onehouse is pushing deeper into managed lakehouse workflows across analytics, reporting, ML, and GenAI.\n\nfor a product like that, i imagine some friction is helping users know what to do next inside ingestion, catalog, or optimization flows without losing the context of the data UI.\n\nwarpy adds an in-product assistant so users can ask for that workflow in plain english and finish it inside the existing dashboard. happy to send the short version if useful.',
+        body: 'thanks for connecting. noticed Onehouse is pushing deeper into managed lakehouse workflows across analytics, reporting, ML, and GenAI.\n\nfor a product like that, i imagine some friction is helping users know what to do next inside ingestion, catalog, or optimization flows without losing the context of the data UI.\n\nappilot adds an in-product assistant so users can ask for that workflow in plain english and finish it inside the existing dashboard. happy to send the short version if useful.',
         personalization_packet: {
           core_idea: 'help users finish complex data workflows inside the existing dashboard',
           lead_specific_observation: 'Onehouse is expanding managed lakehouse workflows across analytics, reporting, ML, and GenAI.',
@@ -311,7 +311,7 @@ test('claim accepts workflow-specific Warpy copy that passes recipient comprehen
           why_this_company: 'Onehouse has complex ingestion, catalog, and optimization workflows in a managed lakehouse product',
           specific_dashboard_workflow: 'ingestion, catalog, and optimization flows',
           proof_workflow: 'ask for a lakehouse workflow in plain english and finish it in the existing data UI',
-          recipient_safe_warpy_bridge: 'an in-product assistant where users ask in chat and complete data workflows through configured tools or screen autopilot in the existing UI',
+          recipient_safe_appilot_bridge: 'an in-product assistant where users ask in chat and complete data workflows through configured tools or screen autopilot in the existing UI',
           copy_source: 'research_generated',
         },
       },
@@ -923,7 +923,7 @@ test('audit reports historic placeholder, internal-label, static-template, and i
         ...basePayload,
         apollo_task_id: 'static-copy',
         status: 'completed',
-        body: 'victor - noticed your product.\n\nin complex dashboards, most users only use a small slice because they dont know what to do next or where to go.\n\nwarpy lets them ask in plain english and have the dashboard filter, navigate, and finish the workflow right there.\n\nwant me to send a quick breakdown for tonkean?',
+        body: 'victor - noticed your product.\n\nin complex dashboards, most users only use a small slice because they dont know what to do next or where to go.\n\nappilot lets them ask in plain english and have the dashboard filter, navigate, and finish the workflow right there.\n\nwant me to send a quick breakdown for tonkean?',
         sent_at: '2026-04-30T10:02:00Z',
       },
       {
@@ -948,7 +948,7 @@ test('audit reports historic placeholder, internal-label, static-template, and i
     assert.equal(result.copy_quality_issue_counts.unresolved_copy_placeholder, 1);
     assert.equal(result.copy_quality_issue_counts.static_apollo_template_copy, 1);
     assert.equal(result.copy_quality_issue_counts.internal_source_label_in_copy, 1);
-    assert.equal(result.copy_quality_issue_counts.insider_warpy_positioning_in_copy, 1);
+    assert.equal(result.copy_quality_issue_counts.insider_appilot_positioning_in_copy, 1);
   } finally {
     state.cleanup();
   }

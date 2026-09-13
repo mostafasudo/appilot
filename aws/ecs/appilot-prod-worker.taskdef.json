@@ -1,5 +1,5 @@
 {
-  "family": "warpy-prod-worker",
+  "family": "appilot-prod-worker",
   "networkMode": "awsvpc",
   "requiresCompatibilities": ["FARGATE"],
   "cpu": "256",
@@ -7,7 +7,7 @@
   "executionRoleArn": "",
   "containerDefinitions": [
     {
-      "name": "warpy-prod-worker",
+      "name": "appilot-prod-worker",
       "image": "",
       "essential": true,
       "command": [
@@ -19,7 +19,7 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/warpy-prod-worker",
+          "awslogs-group": "/ecs/appilot-prod-worker",
           "awslogs-region": "",
           "awslogs-stream-prefix": "ecs"
         }

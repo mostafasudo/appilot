@@ -18,14 +18,14 @@ test('first claim succeeds and second same-automation claim blocks', () => {
   const state = tempState();
   try {
     const first = __test__.claim({
-      automationId: 'warpy-gtm-task-executor',
+      automationId: 'appilot-gtm-task-executor',
       stateDir: state.stateDir,
       ownerToken: 'owner-1',
       nowMs: 1000,
     });
 
     const second = __test__.claim({
-      automationId: 'warpy-gtm-task-executor',
+      automationId: 'appilot-gtm-task-executor',
       stateDir: state.stateDir,
       ownerToken: 'owner-2',
       nowMs: 2000,
@@ -45,20 +45,20 @@ test('release with correct token frees the lock', () => {
   const state = tempState();
   try {
     __test__.claim({
-      automationId: 'warpy-marketing-engine',
+      automationId: 'appilot-marketing-engine',
       stateDir: state.stateDir,
       ownerToken: 'owner-1',
       nowMs: 1000,
     });
 
     const released = __test__.release({
-      automationId: 'warpy-marketing-engine',
+      automationId: 'appilot-marketing-engine',
       stateDir: state.stateDir,
       ownerToken: 'owner-1',
     });
 
     const next = __test__.claim({
-      automationId: 'warpy-marketing-engine',
+      automationId: 'appilot-marketing-engine',
       stateDir: state.stateDir,
       ownerToken: 'owner-2',
       nowMs: 2000,
@@ -76,19 +76,19 @@ test('release with wrong token fails and keeps the older lock', () => {
   const state = tempState();
   try {
     __test__.claim({
-      automationId: 'warpy-gtm-lead-builder',
+      automationId: 'appilot-gtm-lead-builder',
       stateDir: state.stateDir,
       ownerToken: 'owner-1',
       nowMs: 1000,
     });
 
     const release = __test__.release({
-      automationId: 'warpy-gtm-lead-builder',
+      automationId: 'appilot-gtm-lead-builder',
       stateDir: state.stateDir,
       ownerToken: 'owner-2',
     });
     const next = __test__.claim({
-      automationId: 'warpy-gtm-lead-builder',
+      automationId: 'appilot-gtm-lead-builder',
       stateDir: state.stateDir,
       ownerToken: 'owner-3',
       nowMs: 2000,
@@ -107,7 +107,7 @@ test('stale abandoned lock is reclaimed by a newer run', () => {
   const state = tempState();
   try {
     __test__.claim({
-      automationId: 'warpy-gtm-task-executor',
+      automationId: 'appilot-gtm-task-executor',
       stateDir: state.stateDir,
       ownerToken: 'owner-1',
       staleAfterMs: 10,
@@ -115,14 +115,14 @@ test('stale abandoned lock is reclaimed by a newer run', () => {
     });
 
     const next = __test__.claim({
-      automationId: 'warpy-gtm-task-executor',
+      automationId: 'appilot-gtm-task-executor',
       stateDir: state.stateDir,
       ownerToken: 'owner-2',
       staleAfterMs: 10,
       nowMs: 1010,
     });
     const oldRelease = __test__.release({
-      automationId: 'warpy-gtm-task-executor',
+      automationId: 'appilot-gtm-task-executor',
       stateDir: state.stateDir,
       ownerToken: 'owner-1',
     });
@@ -141,7 +141,7 @@ test('heartbeat extends the stale window for an active run', () => {
   const state = tempState();
   try {
     __test__.claim({
-      automationId: 'warpy-gtm-lead-builder',
+      automationId: 'appilot-gtm-lead-builder',
       stateDir: state.stateDir,
       ownerToken: 'owner-1',
       staleAfterMs: 10,
@@ -149,21 +149,21 @@ test('heartbeat extends the stale window for an active run', () => {
     });
 
     const heartbeat = __test__.heartbeat({
-      automationId: 'warpy-gtm-lead-builder',
+      automationId: 'appilot-gtm-lead-builder',
       stateDir: state.stateDir,
       ownerToken: 'owner-1',
       staleAfterMs: 10,
       nowMs: 1009,
     });
     const blocked = __test__.claim({
-      automationId: 'warpy-gtm-lead-builder',
+      automationId: 'appilot-gtm-lead-builder',
       stateDir: state.stateDir,
       ownerToken: 'owner-2',
       staleAfterMs: 10,
       nowMs: 1018,
     });
     const reclaimed = __test__.claim({
-      automationId: 'warpy-gtm-lead-builder',
+      automationId: 'appilot-gtm-lead-builder',
       stateDir: state.stateDir,
       ownerToken: 'owner-3',
       staleAfterMs: 10,
@@ -186,20 +186,20 @@ test('heartbeat with wrong token fails and keeps the older lock', () => {
   const state = tempState();
   try {
     __test__.claim({
-      automationId: 'warpy-marketing-engine',
+      automationId: 'appilot-marketing-engine',
       stateDir: state.stateDir,
       ownerToken: 'owner-1',
       nowMs: 1000,
     });
 
     const heartbeat = __test__.heartbeat({
-      automationId: 'warpy-marketing-engine',
+      automationId: 'appilot-marketing-engine',
       stateDir: state.stateDir,
       ownerToken: 'owner-2',
       nowMs: 2000,
     });
     const status = __test__.status({
-      automationId: 'warpy-marketing-engine',
+      automationId: 'appilot-marketing-engine',
       stateDir: state.stateDir,
       nowMs: 2000,
     });
@@ -217,13 +217,13 @@ test('different automation ids do not block each other', () => {
   const state = tempState();
   try {
     const first = __test__.claim({
-      automationId: 'warpy-marketing-engine',
+      automationId: 'appilot-marketing-engine',
       stateDir: state.stateDir,
       ownerToken: 'owner-1',
       nowMs: 1000,
     });
     const second = __test__.claim({
-      automationId: 'warpy-gtm-lead-builder',
+      automationId: 'appilot-gtm-lead-builder',
       stateDir: state.stateDir,
       ownerToken: 'owner-2',
       nowMs: 1000,
@@ -240,7 +240,7 @@ test('status reports active lock and stale state', () => {
   const state = tempState();
   try {
     __test__.claim({
-      automationId: 'warpy-marketing-engine',
+      automationId: 'appilot-marketing-engine',
       stateDir: state.stateDir,
       ownerToken: 'owner-1',
       staleAfterMs: 10,
@@ -248,13 +248,13 @@ test('status reports active lock and stale state', () => {
     });
 
     const active = __test__.status({
-      automationId: 'warpy-marketing-engine',
+      automationId: 'appilot-marketing-engine',
       stateDir: state.stateDir,
       staleAfterMs: 10,
       nowMs: 1009,
     });
     const stale = __test__.status({
-      automationId: 'warpy-marketing-engine',
+      automationId: 'appilot-marketing-engine',
       stateDir: state.stateDir,
       staleAfterMs: 10,
       nowMs: 1010,

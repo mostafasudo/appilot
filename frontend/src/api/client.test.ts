@@ -375,15 +375,15 @@ describe("apiClient", () => {
   it("supports widget config operations", async () => {
     const responses = [
       jsonResponse({
-        widgetTitle: "Warpy",
+        widgetTitle: "Appilot",
         widgetIconUrl: null,
         widgetAppearanceMode: "infer",
-        widgetResponseMode: "warpy_components",
+        widgetResponseMode: "appilot_components",
         widgetTheme: null,
         widgetBehavior: "overlay",
         widgetEmptyTitle: "What would you like to do?",
         widgetEmptyDescription: "Ask a question, request help, or describe what you want to get done.",
-        widgetInputPlaceholder: "Ask Warpy…",
+        widgetInputPlaceholder: "Ask Appilot…",
         widgetSuggestionsEnabled: false,
         widgetStarterSuggestions: [],
         widgetSecurityDisclosureEnabled: true

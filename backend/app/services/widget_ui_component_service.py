@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 from ..models import WidgetUiComponent
 from ..schemas.widget_dynamic_ui import WidgetUiComponentPayload
 
-BUILT_IN_WARPY_COMPONENT_KEYS = {
+BUILT_IN_APPILOT_COMPONENT_KEYS = {
     "summary_card",
     "notice",
     "metric_strip",
@@ -104,8 +104,8 @@ def delete_widget_ui_component(session: Session, component_id: UUID, user_id: st
 
 
 def _validate_component_key(key: str) -> None:
-    if key in BUILT_IN_WARPY_COMPONENT_KEYS:
+    if key in BUILT_IN_APPILOT_COMPONENT_KEYS:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Native component keys cannot reuse built-in Warpy component names.",
+            detail="Native component keys cannot reuse built-in Appilot component names.",
         )

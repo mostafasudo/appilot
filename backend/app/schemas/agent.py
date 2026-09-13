@@ -55,7 +55,7 @@ class AgentWidgetConfigResponse(BaseModel):
     widget_title: str = Field(alias="widgetTitle", min_length=1, max_length=80)
     widget_icon_url: str | None = Field(default=None, alias="widgetIconUrl", max_length=2048)
     widget_appearance_mode: Literal["infer", "custom"] = Field(default="infer", alias="widgetAppearanceMode")
-    widget_response_mode: WidgetResponseMode = Field(default="warpy_components", alias="widgetResponseMode")
+    widget_response_mode: WidgetResponseMode = Field(default="appilot_components", alias="widgetResponseMode")
     widget_theme: WidgetTheme | None = Field(default=None, alias="widgetTheme")
     widget_behavior: Literal["overlay", "push"] = Field(default="overlay", alias="widgetBehavior")
     widget_empty_title: str = Field(alias="widgetEmptyTitle", max_length=120)

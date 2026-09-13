@@ -108,7 +108,7 @@ def test_logger_configuration():
     logger.propagate = False
     for handler in logger.handlers:
         handler.setLevel(logging.INFO)
-    assert logger.name == "warpy"
+    assert logger.name == "appilot"
     assert logger.level == logging.INFO
     assert len(logger.handlers) > 0
     handler = logger.handlers[0]
@@ -119,4 +119,4 @@ def test_app_logger_reset():
     AppLogger._instance = None
     logger = AppLogger.get_logger()
     assert logger is not None
-    assert logger.name == "warpy"
+    assert logger.name == "appilot"

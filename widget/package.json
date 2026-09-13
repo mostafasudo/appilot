@@ -1,17 +1,17 @@
 {
-  "name": "@warpy-ai/widget",
+  "name": "@appilot-ai/widget",
   "version": "1.0.0",
   "license": "MIT",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LevwTech/warpy.git",
+    "url": "git+https://github.com/mostafasudo/appilot.git",
     "directory": "widget"
   },
   "bugs": {
-    "url": "https://github.com/LevwTech/warpy/issues"
+    "url": "https://github.com/mostafasudo/appilot/issues"
   },
-  "homepage": "https://github.com/LevwTech/warpy/tree/main/widget#readme",
+  "homepage": "https://github.com/mostafasudo/appilot/tree/main/widget#readme",
   "main": "./core/mountWidget.js",
   "exports": {
     ".": {

@@ -66,7 +66,7 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.90.2
         version: 5.90.2(react@19.2.6)
-      '@warpy-ai/widget':
+      '@appilot-ai/widget':
         specifier: ^2.1.0
         version: 2.1.0(react@19.2.6)
       class-variance-authority:
@@ -1775,7 +1775,7 @@ packages:
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
 
-  '@warpy-ai/widget@2.1.0':
+  '@appilot-ai/widget@2.1.0':
     resolution: {integrity: sha512-lRr2gTzVH1Jg8jXY96lzfw9G3S6LV4zmBhs1a+qcvRgYtWRaZDXuD7kzS8j8Pmthkk3WIGLiUnXn0+uD91ZcJw==}
     peerDependencies:
       '@angular/core': ^17.0.0
@@ -6113,7 +6113,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@warpy-ai/widget@2.1.0(react@19.2.6)':
+  '@appilot-ai/widget@2.1.0(react@19.2.6)':
     optionalDependencies:
       react: 19.2.6
 

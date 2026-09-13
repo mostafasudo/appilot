@@ -82,15 +82,15 @@ const STARTER_SUGGESTION_PLACEHOLDERS = [
 ] as const
 
 const DEFAULT_WIDGET_CONFIG: AgentWidgetConfigUpdate = {
-  widgetTitle: "Warpy",
+  widgetTitle: "Appilot",
   widgetIconUrl: null,
   widgetAppearanceMode: "infer",
-  widgetResponseMode: "warpy_components",
+  widgetResponseMode: "appilot_components",
   widgetTheme: null,
   widgetBehavior: "overlay",
   widgetEmptyTitle: "What would you like to do?",
   widgetEmptyDescription: "Ask a question, request help, or describe what you want to get done.",
-  widgetInputPlaceholder: "Ask Warpy…",
+  widgetInputPlaceholder: "Ask Appilot…",
   widgetSuggestionsEnabled: false,
   widgetStarterSuggestions: [],
   widgetSecurityDisclosureEnabled: true,
@@ -130,8 +130,8 @@ const WIDGET_RESPONSE_MODE_OPTIONS: Array<{
     icon: MessageSquare,
   },
   {
-    value: "warpy_components",
-    title: "Warpy components",
+    value: "appilot_components",
+    title: "Appilot components",
     description: "Responsive cards, lists, and tables styled by your widget theme.",
     icon: Sparkles,
     recommended: true,
@@ -145,7 +145,7 @@ const WIDGET_RESPONSE_MODE_OPTIONS: Array<{
 ]
 
 const NATIVE_COMPONENT_SNIPPETS: Record<NativeComponentFramework, string> = {
-  react: `import { Widget } from "@warpy-ai/widget/react"
+  react: `import { Widget } from "@appilot-ai/widget/react"
 
 const components = [{
   key: "invoice_summary",
@@ -154,7 +154,7 @@ const components = [{
 }]
 
 <Widget agentId="..." scriptSrc="..." components={components} />`,
-  vue: `<WarpyWidget
+  vue: `<AppilotWidget
   agent-id="..."
   script-src="..."
   :components="[{ key: 'invoice_summary', version: '1', component: InvoiceSummary }]"
@@ -167,17 +167,17 @@ const components = [{
   }
 }]
 
-<warpy-widget
+<appilot-widget
   agentId="..."
   scriptSrc="..."
   [components]="components">
-</warpy-widget>`,
-  svelte: `<WarpyWidget
+</appilot-widget>`,
+  svelte: `<AppilotWidget
   agentId="..."
   scriptSrc="..."
   components={[{ key: 'invoice_summary', version: '1', component: InvoiceSummary }]}
 />`,
-  vanilla: `import { mountWidget } from "@warpy-ai/widget"
+  vanilla: `import { mountWidget } from "@appilot-ai/widget"
 
 mountWidget({
   agentId: "...",
@@ -189,7 +189,7 @@ mountWidget({
   }]
 })`,
   script: `<script>
-  window.warpy?.registerComponents?.([{
+  window.appilot?.registerComponents?.([{
     key: "invoice_summary",
     version: "1",
     render({ mount, props }) {
@@ -203,7 +203,7 @@ const createWidgetConfigDraft = (value: AgentWidgetConfigResponse): WidgetConfig
   widgetTitle: value.widgetTitle,
   widgetIconUrl: value.widgetIconUrl,
   widgetAppearanceMode: value.widgetAppearanceMode,
-  widgetResponseMode: value.widgetResponseMode ?? "warpy_components",
+  widgetResponseMode: value.widgetResponseMode ?? "appilot_components",
   widgetTheme: value.widgetTheme ? cloneWidgetTheme(value.widgetTheme) : null,
   widgetBehavior: value.widgetBehavior === "push" ? "push" : "overlay",
   widgetEmptyTitle: value.widgetEmptyTitle,
@@ -527,9 +527,9 @@ export const ConfigureWidgetPanelContent = () => {
                 <Badge variant={draft.widgetAppearanceMode === "custom" ? "default" : "secondary"}>
                   {draft.widgetAppearanceMode === "custom" ? "Custom theme" : "Infer from page"}
                 </Badge>
-                <Badge variant={draft.widgetResponseMode === "warpy_components" ? "default" : "secondary"}>
-                  {draft.widgetResponseMode === "warpy_components"
-                    ? "Warpy components"
+                <Badge variant={draft.widgetResponseMode === "appilot_components" ? "default" : "secondary"}>
+                  {draft.widgetResponseMode === "appilot_components"
+                    ? "Appilot components"
                     : draft.widgetResponseMode === "native_components"
                       ? "Native components"
                       : "Markdown"}
@@ -626,7 +626,7 @@ export const ConfigureWidgetPanelContent = () => {
 
                   <ThemeCard
                     title="Response mode"
-                    description="Choose how assistant replies render inside the widget. Warpy components are responsive-first and stay visually quiet inside narrow panels."
+                    description="Choose how assistant replies render inside the widget. Appilot components are responsive-first and stay visually quiet inside narrow panels."
                   >
                     <div className="grid gap-3">
                       {WIDGET_RESPONSE_MODE_OPTIONS.map((option) => {
@@ -698,7 +698,7 @@ export const ConfigureWidgetPanelContent = () => {
                           <div>
                             <p className="text-sm font-semibold">Connect your app components</p>
                             <p className="mt-1 text-sm text-muted-foreground">
-                              Register output-only components and keep their prop schemas in sync through the Warpy API.
+                              Register output-only components and keep their prop schemas in sync through the Appilot API.
                             </p>
                           </div>
                           <Button type="button" variant="outline" onClick={() => setNativeComponentsOpen(true)}>
@@ -1135,7 +1135,7 @@ export const ConfigureWidgetPanelContent = () => {
         <DialogHeader>
           <DialogTitle>Connect native components</DialogTitle>
           <DialogDescription>
-            Native mode renders components from your app. Warpy only stores the component contract and complete markdown fallback.
+            Native mode renders components from your app. Appilot only stores the component contract and complete markdown fallback.
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-5">
@@ -1163,8 +1163,8 @@ export const ConfigureWidgetPanelContent = () => {
               className="rounded-xl border border-border bg-muted/20 p-4 text-sm leading-relaxed text-muted-foreground sm:mt-6"
               data-testid="native-components-api-guidance"
             >
-              Use <code className="rounded bg-background px-1 py-0.5">/widget-components</code> through the Warpy API to add,
-              update, or remove components. Your agent should diff local prop types against Warpy, then apply changes after your
+              Use <code className="rounded bg-background px-1 py-0.5">/widget-components</code> through the Appilot API to add,
+              update, or remove components. Your agent should diff local prop types against Appilot, then apply changes after your
               approval.
             </div>
           </div>
@@ -1188,7 +1188,7 @@ export const ConfigureWidgetPanelContent = () => {
             </Button>
           </div>
           <div className="rounded-xl border border-border bg-background p-4 text-sm text-muted-foreground">
-            Components must be output-only. Include precise prop descriptions, character limits, row/item limits, and when Warpy should avoid the component. If the reply does not fully fit, Warpy uses markdown.
+            Components must be output-only. Include precise prop descriptions, character limits, row/item limits, and when Appilot should avoid the component. If the reply does not fully fit, Appilot uses markdown.
           </div>
         </div>
       </DialogContent>

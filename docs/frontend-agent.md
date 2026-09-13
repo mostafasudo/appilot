@@ -1,7 +1,7 @@
 # Frontend Agent Capability (Widget)
 
 ## Overview
-The Warpy agent can observe and act on the host dashboard directly. Four always-available frontend tools give it this ability:
+The Appilot agent can observe and act on the host dashboard directly. Four always-available frontend tools give it this ability:
 
 - **`read_page`** — returns a hierarchical accessibility tree of the current page with stable ref IDs for each element. Includes a screenshot when tab screen sharing is active.
 - **`find_elements`** — searches for elements by natural language description, returning matching elements with ref IDs.
@@ -16,18 +16,18 @@ In the Agents tab, the toggle for this behavior is labeled **Screen Autopilot**.
 Widget replies support three response modes:
 
 - **Markdown**: assistant replies render as plain text or markdown.
-- **Warpy components**: the default for new agents. The backend attaches a validated `renderPayload` and the vanilla widget renders compact, responsive output components in the chat timeline.
-- **Native components**: the backend attaches a validated `renderPayload` for a customer-registered component key/version. The host app registers a renderer through the widget package or `window.warpy.registerComponents`.
+- **Appilot components**: the default for new agents. The backend attaches a validated `renderPayload` and the vanilla widget renders compact, responsive output components in the chat timeline.
+- **Native components**: the backend attaches a validated `renderPayload` for a customer-registered component key/version. The host app registers a renderer through the widget package or `window.appilot.registerComponents`.
 
 `messages.content` remains the complete markdown fallback in every mode. `messages.render_payload` is optional structured metadata for dynamic rendering. Invalid payloads, unsuitable content, missing native renderers, and Activity views for native components all fall back to the complete markdown content.
 
 Dynamic UI is output-only in v1. It must not introduce forms, destructive buttons, or extra action controls. Follow-up suggestions, configured tools, and screen autopilot remain the action surfaces.
 
-Warpy component payload:
+Appilot component payload:
 
 ```json
 {
-  "kind": "warpy_components",
+  "kind": "appilot_components",
   "version": 1,
   "tree": [
     {
@@ -69,7 +69,7 @@ Features can now contain both backend and frontend tools:
 Frontend feature tools are invoked in the host page with:
 
 ```js
-window.warpy("tool_name", vars)
+window.appilot("tool_name", vars)
 ```
 
 Customers implement this handler in their dashboard app. The widget passes:
@@ -81,7 +81,7 @@ In the Features UI, frontend tool parameters are defined with the structured fie
 Minimal host-side registration example:
 
 ```js
-window.warpy = async (toolName, vars) => {
+window.appilot = async (toolName, vars) => {
   if (toolName === "open_order_drawer") {
     const orderId = vars["orderId"]
     return { ok: true, orderId }
@@ -101,7 +101,7 @@ window.warpy = async (toolName, vars) => {
 - UI feedback for page actions: status panel, element highlight, frontend-interaction warning lifecycle.
 - Live execution feedback for customer-defined tools:
   - backend feature tools reuse the inline activity card while the browser request is running
-  - manual frontend feature tools (`window.warpy(toolName, vars)`) show the same inline activity card plus the existing frontend warning banner
+  - manual frontend feature tools (`window.appilot(toolName, vars)`) show the same inline activity card plus the existing frontend warning banner
   - widget labels use `feature.name + tool.name`, humanized in the browser for end-user readability
   - pure backend-only tool batches stay parallel and surface one activity card with per-tool step state
 - User stop control while runs are in progress (Send becomes Stop).
@@ -143,11 +143,11 @@ sequenceDiagram
 ```
 
 ## Route ownership
-- Warpy-managed widget routes always call Warpy's API origin: `GET /widget/config/{agentId}`, `WS /widget/session`, and `POST /widget/transcribe`.
+- Appilot-managed widget routes always call Appilot's API origin: `GET /widget/config/{agentId}`, `WS /widget/session`, and `POST /widget/transcribe`.
 - The customer-configured `baseUrl` is only for customer-owned routes:
   - backend tool execution against the host product API
-  - the optional widget token refresh endpoint that returns `{ token }` and then calls Warpy server-to-server with the shared Warpy API Key
-- Do not reuse `baseUrl` for Warpy widget routes even if the customer backend lives on the same domain.
+  - the optional widget token refresh endpoint that returns `{ token }` and then calls Appilot server-to-server with the shared Appilot API Key
+- Do not reuse `baseUrl` for Appilot widget routes even if the customer backend lives on the same domain.
 
 ## Turn identity and ownership
 - Each websocket `chat.request` must include a non-empty client-generated `requestId`.
@@ -188,7 +188,7 @@ All tool calls returned to the widget include a `type` discriminator:
 
 `frontend` call behavior depends on the tool name:
 - `name: "frontend"` => built-in action engine (`actions` array).
-- `name: "<custom_tool_name>"` => manual frontend tool call via `window.warpy(name, vars)`.
+- `name: "<custom_tool_name>"` => manual frontend tool call via `window.appilot(name, vars)`.
 
 Example: read_page tool call
 ```json

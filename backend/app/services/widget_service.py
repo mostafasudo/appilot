@@ -99,7 +99,7 @@ def get_widget_config(
         widget_title=agent.widget_title,
         widget_icon_url=agent.widget_icon_url,
         widget_appearance_mode="custom" if agent.widget_appearance_mode == "custom" else "infer",
-        widget_response_mode=agent.widget_response_mode if agent.widget_response_mode in {"markdown", "warpy_components", "native_components"} else "warpy_components",
+        widget_response_mode=agent.widget_response_mode if agent.widget_response_mode in {"markdown", "appilot_components", "native_components"} else "appilot_components",
         widget_theme=agent.widget_theme,
         widget_behavior=agent.widget_behavior,
         widget_empty_title=agent.widget_empty_title,

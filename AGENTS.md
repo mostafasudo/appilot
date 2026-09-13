@@ -12,7 +12,7 @@ When a task involves sales, marketing, or GTM, read [GTM.md](GTM.md) and use it.
 
 ## Core Values (Widget & Product)
 
-- **Minimal Intrusion:** The widget must be as vanilla and minimal as possible. It must avoid being invasive to the user's dashboard and styling. Warpy overlays, morphs, and acts, but never disrupts or overwrites the host product experience.
+- **Minimal Intrusion:** The widget must be as vanilla and minimal as possible. It must avoid being invasive to the user's dashboard and styling. Appilot overlays, morphs, and acts, but never disrupts or overwrites the host product experience.
 - **End-User Simplicity:** Anything surfaced to end users (our customers' users) must be extremely simple and non-technical—no jargon.
 - **Host Design Inheritance:** We use as much as possible from the existing customer host page. Infer their design tokens—fonts, colors, spacing—and reuse them so the widget feels native to the dashboard.
 
@@ -25,17 +25,17 @@ When a task involves sales, marketing, or GTM, read [GTM.md](GTM.md) and use it.
 4. Run the full frontend and backend testing sweep
 5. Run the code review tool/skill for a careful review with `/review`
 6. If there are review comments to address, apply `docs/receiving-code-review.md` before making those changes
-7. **Manual QA (`/qa`):** Confirm the feature was actually built and does what it should. Test manually end to end: follow `docs/chrome-cdp.md`, drive Chrome, and click through the full flow yourself—do not rely on automated tests alone. While doing so, tail Docker Compose logs for `warpy-frontend`, `warpy-backend`, and `warpy-worker` (names may include a suffix such as `-1`) and verify traffic, jobs, and errors match what you expect.
+7. **Manual QA (`/qa`):** Confirm the feature was actually built and does what it should. Test manually end to end: follow `docs/chrome-cdp.md`, drive Chrome, and click through the full flow yourself—do not rely on automated tests alone. While doing so, tail Docker Compose logs for `appilot-frontend`, `appilot-backend`, and `appilot-worker` (names may include a suffix such as `-1`) and verify traffic, jobs, and errors match what you expect.
 8. Call other relevant skills such as `/browse`, `/design-review`, `/retro`, and `/document-release` when they materially improve the outcome and keep documentation up to date
 
 When moving through these steps and invoking those skills, act with agency: make decisions yourself, pick what you recommend, and minimize questions to the user—reserve questions only for truly critical choices.
 
-## What is Warpy
-Warpy helps B2B SaaS teams with complex dashboards, low feature adoption, and repetitive support tickets make their product AI-native.
+## What is Appilot
+Appilot helps B2B SaaS teams with complex dashboards, low feature adoption, and repetitive support tickets make their product AI-native.
 
-Customers embed a lightweight in-product assistant into their dashboard. Users ask for work in chat, Warpy can answer with dynamic UI in the widget chat using Warpy components or customer native components, and configured tools or screen autopilot can operate the existing dashboard on the user's behalf.
+Customers embed a lightweight in-product assistant into their dashboard. Users ask for work in chat, Appilot can answer with dynamic UI in the widget chat using Appilot components or customer native components, and configured tools or screen autopilot can operate the existing dashboard on the user's behalf.
 
-For GTM and recipient-visible copy, do not make "dynamic UI" carry the whole action story. Dynamic UI means structured chat output; dashboard control comes from configured tools and screen autopilot. GTM messaging must lead with the adoption or support problem, tie it to a concrete workflow, then explain Warpy in plain recipient language.
+For GTM and recipient-visible copy, do not make "dynamic UI" carry the whole action story. Dynamic UI means structured chat output; dashboard control comes from configured tools and screen autopilot. GTM messaging must lead with the adoption or support problem, tie it to a concrete workflow, then explain Appilot in plain recipient language.
 
 ## Monorepo Structure
 This repo contains these projects:
@@ -43,7 +43,7 @@ This repo contains these projects:
 | Directory | Purpose |
 |-----------|---------|
 | `frontend/` + `backend/` | Core platform — dashboard, API, agent engine, and all backend services. |
-| `widget/` | The `@warpy-ai/widget` package customers install to embed Warpy in their dashboards. |
+| `widget/` | The `@appilot-ai/widget` package customers install to embed Appilot in their dashboards. |
 
 ## Modes
 - **Ask mode:** answers are short, clear, and strictly concise.
@@ -63,7 +63,7 @@ LLM agent skills are stored in `.codex/skills/` (the canonical location). The ac
 - Operate with **extreme selectiveness, high taste, and high standards**. Every addition must be clearly justified and materially improve correctness, reliability, performance, or maintainability.
 - Whenever your changes make any code or test dead or unused, remove that code or test so the codebase only contains what is relevant and necessary.
 - Follow existing patterns only. Always match naming, structure, and usage found elsewhere in the codebase.
-- When you change a feature or surface, update the equivalent doc file in `docs/` (internal documentation) when one exists. Keep `AGENTS.md` and the project `README.md` up to date, but remember that the README is for humans: it should include only extremely relevant project-level information such as what Warpy is, how to run the dev environment, and the main core ideas. Do not put implementation details, automation internals, operational runbooks, or edge-case behavior in the README; put those in `docs/`.
+- When you change a feature or surface, update the equivalent doc file in `docs/` (internal documentation) when one exists. Keep `AGENTS.md` and the project `README.md` up to date, but remember that the README is for humans: it should include only extremely relevant project-level information such as what Appilot is, how to run the dev environment, and the main core ideas. Do not put implementation details, automation internals, operational runbooks, or edge-case behavior in the README; put those in `docs/`.
 - Whenever browser access is needed for validation, debugging, reproduction, or automation, load `docs/chrome-cdp.md` first and prefer that live Chrome session workflow over separate browser instances.
 - **When the instruction says "ship it", that means:**  
   run all tests, then commit and push the changes (excluding any changes to `frontend/index.html`).  
@@ -78,7 +78,7 @@ LLM agent skills are stored in `.codex/skills/` (the canonical location). The ac
 - **Backend tests (local):** activate `backend/.venv` then `python3 -m pytest app`
 - **Backend tests (docker):** `docker compose exec backend python3 -m pytest app`
 - **Widget `<script>`:** tiny, idempotent init, no globals, no CSS bleed, works without the dashboard.
-- **White-labeling:** the widget runs on customers' dashboards and must be fully white-label-ready. Never hard-code "Warpy" (or any Warpy branding) in user-facing widget output. Any product name shown to end users must come from a configurable value that defaults to "Warpy" only when the customer hasn't set their own.
+- **White-labeling:** the widget runs on customers' dashboards and must be fully white-label-ready. Never hard-code "Appilot" (or any Appilot branding) in user-facing widget output. Any product name shown to end users must come from a configurable value that defaults to "Appilot" only when the customer hasn't set their own.
 - **Backend:** **FastAPI**, **SQLAlchemy**, **Redis + RQ** for background jobs, **LangChain** via existing clients.
 - **DB:** write **efficient queries** only; avoid N+1; never full table scans; always use appropriate indexes/limits/projections.
 - **Concurrency:** make all operations **idempotent and atomic**; use upserts instead of inserts; implement proper locking; design for high concurrency safety.
@@ -111,8 +111,8 @@ LLM agent skills are stored in `.codex/skills/` (the canonical location). The ac
   `node scripts/with-agent-env.mjs gh run view <run-id> --log-failed`
   `node scripts/with-agent-env.mjs gh api repos/{owner}/{repo}/actions/runs --jq '.workflow_runs[0] | {status, conclusion, headBranch: .head_branch, updatedAt: .updated_at}'`
 - Common AWS operational commands:
-  `node scripts/with-agent-env.mjs aws logs describe-log-groups --log-group-name-prefix /ecs/warpy-prod-`
-  `node scripts/with-agent-env.mjs aws logs tail /ecs/warpy-prod-backend --since 30m`
+  `node scripts/with-agent-env.mjs aws logs describe-log-groups --log-group-name-prefix /ecs/appilot-prod-`
+  `node scripts/with-agent-env.mjs aws logs tail /ecs/appilot-prod-backend --since 30m`
   `node scripts/with-agent-env.mjs aws ecs list-clusters`
   `node scripts/with-agent-env.mjs aws ecs list-services --cluster <cluster-name-or-arn>`
 - Never print secrets into docs, issues, or commits. Use the wrapper, inspect only the command output you need, and keep `.env` untracked.

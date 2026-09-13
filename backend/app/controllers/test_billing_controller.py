@@ -179,14 +179,14 @@ def test_enterprise_checkout_validates_admin_token(client: TestClient, monkeypat
 
     forbidden = client.post(
         "/billing/checkout/enterprise",
-        headers={**auth_headers(), "x-warpy-admin-token": "nope"},
+        headers={**auth_headers(), "x-appilot-admin-token": "nope"},
         json={"customPriceCents": 10000, "monthlyActions": 12345},
     )
     assert forbidden.status_code == 403
 
     ok = client.post(
         "/billing/checkout/enterprise",
-        headers={**auth_headers(), "x-warpy-admin-token": "admin"},
+        headers={**auth_headers(), "x-appilot-admin-token": "admin"},
         json={"customPriceCents": 10000, "monthlyActions": 12345},
     )
     assert ok.status_code == 200

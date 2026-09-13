@@ -14,7 +14,7 @@ import { homedir, hostname } from 'node:os';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const DEFAULT_STATE_DIR = resolve(homedir(), '.codex/state/warpy-automation-locks');
+const DEFAULT_STATE_DIR = resolve(homedir(), '.codex/state/appilot-automation-locks');
 const DEFAULT_STALE_AFTER_MS = 2 * 60 * 60 * 1000;
 const RECLAIM_STALE_AFTER_MS = 5 * 60 * 1000;
 const OWNER_FILE = 'owner.json';
@@ -425,10 +425,10 @@ function parseArgs(argv) {
 
 function usage() {
   return `Usage:
-  node scripts/gtm-automation-run-guard.mjs claim --automation-id warpy-gtm-task-executor
-  node scripts/gtm-automation-run-guard.mjs heartbeat --automation-id warpy-gtm-task-executor --owner-token <token>
-  node scripts/gtm-automation-run-guard.mjs release --automation-id warpy-gtm-task-executor --owner-token <token>
-  node scripts/gtm-automation-run-guard.mjs status --automation-id warpy-gtm-task-executor
+  node scripts/gtm-automation-run-guard.mjs claim --automation-id appilot-gtm-task-executor
+  node scripts/gtm-automation-run-guard.mjs heartbeat --automation-id appilot-gtm-task-executor --owner-token <token>
+  node scripts/gtm-automation-run-guard.mjs release --automation-id appilot-gtm-task-executor --owner-token <token>
+  node scripts/gtm-automation-run-guard.mjs status --automation-id appilot-gtm-task-executor
 
 The claim command prints JSON. If decision is "blocked", stop the automation before reading sources or touching GTM platforms.`;
 }

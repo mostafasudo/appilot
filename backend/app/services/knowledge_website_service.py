@@ -203,7 +203,7 @@ def resolve_website_scope(raw_url: str) -> str:
     if fallback_candidate != candidate:
         attempts.append(fallback_candidate)
 
-    headers = {"User-Agent": "WarpyBot/1.0 (+https://warpy.ai)"}
+    headers = {"User-Agent": "AppilotBot/1.0 (+https://appilot.ai)"}
     def validate_request(request: httpx.Request) -> None:
         ensure_public_website_url(str(request.url))
 

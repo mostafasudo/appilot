@@ -8,28 +8,28 @@ export const mountWidget = ({ agentId, baseUrl, scriptSrc, containerId, componen
 
   const existing = containerId
     ? document.getElementById(containerId)
-    : document.querySelector('[data-warpy-widget-root="true"]')
+    : document.querySelector('[data-appilot-widget-root="true"]')
   if (existing && existing.parentNode) {
     existing.parentNode.removeChild(existing)
   }
 
   const container = document.createElement("div")
-  container.setAttribute("data-warpy-widget-root", "true")
+  container.setAttribute("data-appilot-widget-root", "true")
   if (containerId) {
     container.id = containerId
   }
   document.body.appendChild(container)
 
   const script = document.createElement("script")
-  script.setAttribute("data-warpy-widget-script", "true")
+  script.setAttribute("data-appilot-widget-script", "true")
   script.async = true
   script.src = scriptSrc
   script.dataset.agentId = agentId
   if (Array.isArray(components)) {
-    script.__warpyComponents = components
+    script.__appilotComponents = components
     script.addEventListener("load", () => {
-      if (typeof window !== "undefined" && typeof window.warpy?.registerComponents === "function") {
-        window.warpy.registerComponents(script.__warpyComponents)
+      if (typeof window !== "undefined" && typeof window.appilot?.registerComponents === "function") {
+        window.appilot.registerComponents(script.__appilotComponents)
       }
     }, { once: true })
   }

@@ -134,7 +134,7 @@ describe("ActivityPanel", () => {
     expect(screen.getByText(/"products"/)).not.toBeNull()
   })
 
-  it("renders Warpy dynamic messages and native fallbacks in conversation detail", async () => {
+  it("renders Appilot dynamic messages and native fallbacks in conversation detail", async () => {
     mockedSummary.mockReturnValue({
       data: { conversationCount: 1, actionCount: 0, hasAnyConversation: true, topActions: [] },
       isPending: false
@@ -177,7 +177,7 @@ describe("ActivityPanel", () => {
                   content: "Markdown fallback",
                   createdAt: "2026-01-02T00:00:01Z",
                   renderPayload: {
-                    kind: "warpy_components",
+                    kind: "appilot_components",
                     version: 1,
                     markdownFallback: "Markdown fallback",
                     tree: [{ component: "summary_card", props: { title: "Invoice summary", body: "Two invoices need review." } }]
@@ -282,7 +282,7 @@ describe("ActivityPanel", () => {
                     kind: "frontend_tool",
                     tool: "open_drawer",
                     vars: { drawer: "orders" },
-                    title: "Warpy - Jarvis for your dashboard",
+                    title: "Appilot - Jarvis for your dashboard",
                     url: "http://localhost:5173/?tab=features",
                     result: { ok: true }
                   },
@@ -320,7 +320,7 @@ describe("ActivityPanel", () => {
     expect(screen.queryByText(/"kind": "frontend_tool"/)).toBeNull()
     expect(screen.queryByText(/"tool": "open_drawer"/)).toBeNull()
     expect(screen.queryByText(/"vars":/)).toBeNull()
-    expect(screen.queryByText(/"title": "Warpy - Jarvis for your dashboard"/)).toBeNull()
+    expect(screen.queryByText(/"title": "Appilot - Jarvis for your dashboard"/)).toBeNull()
   })
 
   it("shows only issue (no result body) in tool result details for frontend tool errors", async () => {

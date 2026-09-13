@@ -21,7 +21,7 @@ SECTION_MANIFEST = [
     },
     {
         "section": "API Config",
-        "purpose": "Configure base URLs, auth mapping, custom headers, MCP connections, and manage the single Warpy API key.",
+        "purpose": "Configure base URLs, auth mapping, custom headers, MCP connections, and manage the single Appilot API key.",
         "toggles": ["sendCookiesWithRequests"],
     },
     {
@@ -56,13 +56,13 @@ TOGGLE_MANIFEST = {
     "sendCookiesWithRequests": "When true, browser cookies are included on backend tool requests.",
     "feature.agentEnabled": "Feature-level enablement. Disabling the feature removes all child tools from the agent surface.",
     "tool.agentEnabled": "Tool-level enablement. Disabled tools stay stored but are not callable by the agent.",
-    "widgetResponseMode": "Controls whether widget replies render as markdown, Warpy components, or native components.",
+    "widgetResponseMode": "Controls whether widget replies render as markdown, Appilot components, or native components.",
     "widgetComponent.active": "Controls whether a native output component is eligible for the agent to render.",
-    "knowledgeBase.enabled": "Controls whether retrieval is available to Warpy for this user.",
+    "knowledgeBase.enabled": "Controls whether retrieval is available to Appilot for this user.",
     "frontendCapability.enabled": "Controls whether screen autopilot and frontend execution are available.",
     "widgetSuggestionsEnabled": "Controls whether starter suggestions render in the widget.",
     "widgetSecurityDisclosureEnabled": "Controls the security disclosure copy in the widget surface.",
-    "requireSignedWidgetToken": "Requires the widget to exchange the Warpy API key server-side for a short-lived JWT before protected widget actions.",
+    "requireSignedWidgetToken": "Requires the widget to exchange the Appilot API key server-side for a short-lived JWT before protected widget actions.",
     "userRateLimits.enabled": "Enables per-user rate limiting on widget actions.",
 }
 
@@ -336,7 +336,7 @@ def _render_schema_inventory(openapi: dict) -> str:
     return "\n".join(blocks).rstrip()
 
 
-def build_integrate_warpy_markdown(openapi: dict) -> str:
+def build_integrate_appilot_markdown(openapi: dict) -> str:
     config_example = json.dumps(
         {
             "baseUrl": {
@@ -365,21 +365,21 @@ def build_integrate_warpy_markdown(openapi: dict) -> str:
     widget_component_example = json.dumps(WIDGET_COMPONENT_EXAMPLE, indent=2, sort_keys=True)
 
     sections = [
-        """# Warpy Agent Integration Manual
+        """# Appilot Agent Integration Manual
 
-This file is the **single source of truth for agents**. It must be kept up to date. If the Warpy dashboard changes, this file must change with it.
+This file is the **single source of truth for agents**. It must be kept up to date. If the Appilot dashboard changes, this file must change with it.
 
 Use this document when a coding agent has:
 - this markdown file
-- one Warpy API key
+- one Appilot API key
 
-With those two inputs, the agent must be able to operate the supported Warpy control plane end to end without opening the dashboard.
+With those two inputs, the agent must be able to operate the supported Appilot control plane end to end without opening the dashboard.
 
-## What Warpy Is
+## What Appilot Is
 
-Warpy is an AI execution layer for B2B dashboards. It is not a generic chatbot. It translates user intent into:
+Appilot is an AI execution layer for B2B dashboards. It is not a generic chatbot. It translates user intent into:
 - backend tool calls against approved product APIs
-- frontend tool calls through `window.warpy(name, vars)`
+- frontend tool calls through `window.appilot(name, vars)`
 - screen autopilot actions when frontend capability is enabled
 - grounded answers using the knowledge base
 
@@ -387,7 +387,7 @@ All state-changing actions must use the same control-plane API the dashboard use
 
 ## Initial Setup Flow
 
-Set up Warpy in this order:
+Set up Appilot in this order:
 
 1. Configure the API layer: local and production base URLs, authorization, cookie behavior, and any custom headers.
 2. Embed the widget into the host product so there is a real runtime surface to test.
@@ -401,7 +401,7 @@ The first thing an agent should do is inspect the host codebase and determine ho
 - browser cookie behavior, if the host app uses cookie auth
 - required tenant, workspace, or custom headers
 
-Then configure Warpy through `PUT /config`.
+Then configure Appilot through `PUT /config`.
 
 ### Auth Rules
 
@@ -423,12 +423,12 @@ After API config exists, embed the widget into the host product. The widget is t
 ### React
 
 ```tsx
-import { Widget } from "@warpy-ai/widget/react"
+import { Widget } from "@appilot-ai/widget/react"
 
 <Widget
   agentId="YOUR_AGENT_ID"
   baseUrl="https://api.your-product.com"
-  scriptSrc="https://cdn.warpy.ai/widget.js"
+  scriptSrc="https://cdn.appilot.ai/widget.js"
 />
 ```
 
@@ -436,14 +436,14 @@ import { Widget } from "@warpy-ai/widget/react"
 
 ```vue
 <script setup>
-import { Widget } from "@warpy-ai/widget/vue"
+import { Widget } from "@appilot-ai/widget/vue"
 </script>
 
 <template>
   <Widget
     agentId="YOUR_AGENT_ID"
     baseUrl="https://api.your-product.com"
-    scriptSrc="https://cdn.warpy.ai/widget.js"
+    scriptSrc="https://cdn.appilot.ai/widget.js"
   />
 </template>
 ```
@@ -451,36 +451,36 @@ import { Widget } from "@warpy-ai/widget/vue"
 ### Angular
 
 ```html
-<warpy-widget
+<appilot-widget
   agentId="YOUR_AGENT_ID"
   baseUrl="https://api.your-product.com"
-  scriptSrc="https://cdn.warpy.ai/widget.js"
-></warpy-widget>
+  scriptSrc="https://cdn.appilot.ai/widget.js"
+></appilot-widget>
 ```
 
 ### Svelte
 
 ```svelte
 <script>
-  import Widget from "@warpy-ai/widget/svelte"
+  import Widget from "@appilot-ai/widget/svelte"
 </script>
 
 <Widget
   agentId="YOUR_AGENT_ID"
   baseUrl="https://api.your-product.com"
-  scriptSrc="https://cdn.warpy.ai/widget.js"
+  scriptSrc="https://cdn.appilot.ai/widget.js"
 />
 ```
 
 ### Vanilla JS
 
 ```js
-import { mountWidget } from "@warpy-ai/widget"
+import { mountWidget } from "@appilot-ai/widget"
 
 const widget = mountWidget({
   agentId: "YOUR_AGENT_ID",
   baseUrl: "https://api.your-product.com",
-  scriptSrc: "https://cdn.warpy.ai/widget.js",
+  scriptSrc: "https://cdn.appilot.ai/widget.js",
 })
 ```
 
@@ -488,7 +488,7 @@ const widget = mountWidget({
 
 ```html
 <script
-  src="https://cdn.warpy.ai/widget.js"
+  src="https://cdn.appilot.ai/widget.js"
   data-agent-id="YOUR_AGENT_ID"
   data-base-url="https://api.your-product.com"
 ></script>
@@ -502,15 +502,15 @@ After the widget is embedded, configure the backend and frontend tools the agent
 
 Widget replies can render in three modes:
 - `markdown`: plain text and markdown
-- `warpy_components`: Warpy's responsive built-in output components, styled by the widget theme
+- `appilot_components`: Appilot's responsive built-in output components, styled by the widget theme
 - `native_components`: components from the host app, registered in the widget runtime
 
-Warpy always stores and sends a complete markdown fallback. Native components are output-only; do not register forms, buttons, or destructive controls here.
+Appilot always stores and sends a complete markdown fallback. Native components are output-only; do not register forms, buttons, or destructive controls here.
 
 ### Native Component Runtime Example
 
 ```tsx
-import { Widget } from "@warpy-ai/widget/react"
+import { Widget } from "@appilot-ai/widget/react"
 
 const components = [
   { key: "invoice_summary", version: "1", component: InvoiceSummary }
@@ -519,7 +519,7 @@ const components = [
 <Widget
   agentId="YOUR_AGENT_ID"
   baseUrl="https://api.your-product.com"
-  scriptSrc="https://cdn.warpy.ai/widget.js"
+  scriptSrc="https://cdn.appilot.ai/widget.js"
   components={components}
 />
 ```
@@ -536,31 +536,31 @@ Register the matching component contract through `POST /widget-components`.
 
 An agent should compare:
 - local component prop types, stories, or JSON schemas
-- current Warpy component definitions from `/widget-components`
+- current Appilot component definitions from `/widget-components`
 
 The agent must detect new props, removed props, type changes, character limits, row/item limits, and suitability changes. It must explain the diff and ask for confirmation before calling `POST`, `PUT`, or `DELETE /widget-components`.
 
-## Warpy API Key
+## Appilot API Key
 
-- There is **one Warpy API key per user**.
+- There is **one Appilot API key per user**.
 - The same key is reused across agent operations, widget security, and direct API usage.
 - Rotation happens only in the consolidated API key section and through `POST /api-key/rotate`.
 - The overview page is copy-only. It must never rotate or manage the key.
 
 ## Confirmation Rules
 
-Warpy does **not** do API-level confirmation. The coding agent must ask the human before any state-changing write.
+Appilot does **not** do API-level confirmation. The coding agent must ask the human before any state-changing write.
 
 Required behavior:
-1. inspect current Warpy state
+1. inspect current Appilot state
 2. inspect the host codebase or backend contract
 3. explain the proposed change in plain language
 4. ask the user to confirm
-5. only after confirmation, call the Warpy write endpoint
+5. only after confirmation, call the Appilot write endpoint
 
 Example:
 
-> I found that `create_order_refund` now accepts a new optional field `status`. I can update the Warpy tool schema to match. Confirm and I will apply the change.
+> I found that `create_order_refund` now accepts a new optional field `status`. I can update the Appilot tool schema to match. Confirm and I will apply the change.
 
 Never silently create, update, delete, rotate, or repair.
 
@@ -598,7 +598,7 @@ Frontend tools still use the same OpenAI-style function spec, but execution happ
 ### Frontend Runtime Contract
 
 ```js
-window.warpy = async (toolName, vars) => {
+window.appilot = async (toolName, vars) => {
   if (toolName === "open_order_drawer") {
     return { ok: true, orderId: vars.orderId }
   }
@@ -619,7 +619,7 @@ Drift detection is first-class. It is not optional polish.
 
 An agent should regularly compare:
 - backend endpoints and request contracts in the host codebase or OpenAPI
-- current Warpy tool definitions from `/tools` and `/features`
+- current Appilot tool definitions from `/tools` and `/features`
 
 The agent must detect and explain:
 - new fields
@@ -631,7 +631,7 @@ The agent must detect and explain:
 
 ### Required Repair Flow
 
-1. fetch current Warpy tool definition
+1. fetch current Appilot tool definition
 2. inspect the source-of-truth backend contract
 3. compute a diff
 4. explain the delta to the user

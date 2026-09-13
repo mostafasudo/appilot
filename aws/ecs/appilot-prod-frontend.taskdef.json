@@ -1,5 +1,5 @@
 {
-  "family": "warpy-prod-frontend",
+  "family": "appilot-prod-frontend",
   "networkMode": "awsvpc",
   "requiresCompatibilities": ["FARGATE"],
   "cpu": "256",
@@ -7,7 +7,7 @@
   "executionRoleArn": "",
   "containerDefinitions": [
     {
-      "name": "warpy-prod-frontend",
+      "name": "appilot-prod-frontend",
       "image": "",
       "essential": true,
       "portMappings": [{ "containerPort": 80, "protocol": "tcp" }],
@@ -15,7 +15,7 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/warpy-prod-frontend",
+          "awslogs-group": "/ecs/appilot-prod-frontend",
           "awslogs-region": "",
           "awslogs-stream-prefix": "ecs"
         }

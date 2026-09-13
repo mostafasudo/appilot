@@ -503,7 +503,7 @@ describe("ToolsPanel", () => {
     renderPanel();
 
     expect(screen.getByTestId("feature-name-feature-frontend")).toBeTruthy();
-    expect(screen.getByText("window.warpy('open_drawer', vars)")).toBeTruthy();
+    expect(screen.getByText("window.appilot('open_drawer', vars)")).toBeTruthy();
 
     await user.click(screen.getByTestId("agent-toggle-frontend-tool-1"));
 
